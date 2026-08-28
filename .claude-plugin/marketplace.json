@@ -1,0 +1,15 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "study-claude-skills",
+  "description": "개인/팀용 Claude Code 스킬 모음 (일상, 업무, 개인 개발용)",
+  "owner": {
+    "name": "study-claude"
+  },
+  "plugins": [
+    {
+      "name": "personal-skills",
+      "description": "일상/업무/개인 개발용 개인 Claude Code 스킬 모음",
+      "source": "./plugins/personal-skills"
+    }
+  ]
+}
