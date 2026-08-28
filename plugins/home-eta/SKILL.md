@@ -54,11 +54,12 @@ Tmap(SK 오픈API)의 미래예측(타임머신) 자동차 길 안내 API로, �
    }
    ```
 
-   `results`의 각 항목을 "지금부터 {departAfterMin}분 뒤({departAt}) 출발하면
-   {durationMin}분 걸려서 {arriveEta}쯤 도착해요" 형태로 한국어로 간결하게
-   정리해서 답한다. `departAfterMin`이 0인 항목은 "지금 바로({departAt}) 출발하면
-   ..." 형태로 표현한다. 네 시점 결과를 비교해 더 빠른 시간대가 있으면 짧게
-   언급해도 좋다.
+   `results`의 각 항목을 "🚗 지금부터 {departAfterMin}분 뒤({departAt}) 출발하면
+   {durationMin}분 걸려서 {arriveEta}쯤 도착해요" 형태로, 각 줄 앞에 🚗 이모지를
+   붙여 한국어로 간결하게 정리해서 답한다. `departAfterMin`이 0인 항목은
+   "🚗 지금 바로({departAt}) 출발하면 ..." 형태로 표현한다. 네 시점 결과를
+   비교해 더 빠른 시간대가 있으면 "⭐ "로 시작하는 줄로 짧게 추천을 언급해도
+   좋다.
 
    `error: true`이면 `message`를 그대로 전달하고, 원인(인증키 미설정/만료,
    주소 지오코딩 실패, 네트워크 오류 등)에 맞는 다음 행동을 제안한다.
