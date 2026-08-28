@@ -1,14 +1,14 @@
 ---
 name: home-eta
-description: 자취방에서 본가까지 자차(무료도로 우선, 톨게이트 회피)로 이동할 때 지금부터 30분/1시간/1시간 30분 후 각각 출발하면 얼마나 걸리는지 Tmap 미래예측(타임머신) API로 조회한다. Use when the user asks how long a car drive from their place to their parents' home will take, at several future departure times. Triggers on: "본가 가는데 얼마나 걸려", "집 가는데 시간 얼마나 걸려", "본가까지 얼마나 걸려", "지금 출발하면 언제 도착해", "몇시에 출발하는 게 좋아", "home eta", "drive home". Not for 대중교통 경로나 다른 임의의 두 지점 간 길찾기.
+description: 자취방에서 본가까지 자차(무료도로 우선, 톨게이트 회피)로 이동할 때 지금 바로 및 지금부터 30분/1시간/1시간 30분 후 각각 출발하면 얼마나 걸리는지 Tmap 미래예측(타임머신) API로 조회한다. Use when the user asks how long a car drive from their place to their parents' home will take, at several future departure times. Triggers on: "본가 가는데 얼마나 걸려", "집 가는데 시간 얼마나 걸려", "본가까지 얼마나 걸려", "지금 출발하면 언제 도착해", "몇시에 출발하는 게 좋아", "home eta", "drive home". Not for 대중교통 경로나 다른 임의의 두 지점 간 길찾기.
 disable-model-invocation: true
 ---
 
 # 본가 가는 길 예상 소요시간
 
 Tmap(SK 오픈API)의 미래예측(타임머신) 자동차 길 안내 API로, 자취방 -> 본가
-구간을 **무료도로 우선(톨게이트 회피)** 옵션으로 조회해 지금부터 30분 / 1시간 /
-1시간 30분 뒤 각각 출발했을 때의 예상 소요시간을 알려준다.
+구간을 **무료도로 우선(톨게이트 회피)** 옵션으로 조회해 지금 바로 / 지금부터
+30분 / 1시간 / 1시간 30분 뒤 각각 출발했을 때의 예상 소요시간을 알려준다.
 
 > 자취방/본가 주소는 이 리포지토리(GitHub에 공개됨) 안 어디에도 저장하지 않는다.
 > 항상 사용자 홈 디렉터리(리포 밖)의 로컬 설정 파일에만 저장한다.
@@ -46,6 +46,7 @@ Tmap(SK 오픈API)의 미래예측(타임머신) 자동차 길 안내 API로, �
      "destination": "경기도 ...",
      "searchOption": "무료도로 우선(톨게이트 회피)",
      "results": [
+       { "departAfterMin": 0, "departAt": "15:00", "arriveEta": "15:42", "durationMin": 42, "distanceKm": 25.3 },
        { "departAfterMin": 30, "departAt": "15:30", "arriveEta": "16:10", "durationMin": 40, "distanceKm": 25.3 },
        { "departAfterMin": 60, "departAt": "16:00", "arriveEta": "16:38", "durationMin": 38, "distanceKm": 25.3 },
        { "departAfterMin": 90, "departAt": "16:30", "arriveEta": "17:05", "durationMin": 35, "distanceKm": 25.3 }
@@ -55,8 +56,9 @@ Tmap(SK 오픈API)의 미래예측(타임머신) 자동차 길 안내 API로, �
 
    `results`의 각 항목을 "지금부터 {departAfterMin}분 뒤({departAt}) 출발하면
    {durationMin}분 걸려서 {arriveEta}쯤 도착해요" 형태로 한국어로 간결하게
-   정리해서 답한다. 세 시점 결과를 비교해 더 빠른 시간대가 있으면 짧게 언급해도
-   좋다.
+   정리해서 답한다. `departAfterMin`이 0인 항목은 "지금 바로({departAt}) 출발하면
+   ..." 형태로 표현한다. 네 시점 결과를 비교해 더 빠른 시간대가 있으면 짧게
+   언급해도 좋다.
 
    `error: true`이면 `message`를 그대로 전달하고, 원인(인증키 미설정/만료,
    주소 지오코딩 실패, 네트워크 오류 등)에 맞는 다음 행동을 제안한다.
