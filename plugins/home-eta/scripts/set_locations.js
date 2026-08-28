@@ -41,10 +41,10 @@ async function geocode(appKey, address) {
   }
 
   const info = json?.coordinateInfo;
-  const roadMatch = info?.newAddressList?.newAddress?.[0];
+  const match = info?.coordinate?.[0];
 
-  const lon = roadMatch?.lon ?? info?.lon ?? info?.newLon;
-  const lat = roadMatch?.lat ?? info?.lat ?? info?.newLat;
+  const lon = match?.newLon || match?.lon || info?.newLon || info?.lon;
+  const lat = match?.newLat || match?.lat || info?.newLat || info?.lat;
 
   if (!lon || !lat || Number(lon) === 0 || Number(lat) === 0) {
     throw new Error(`"${address}" 주소로 좌표를 찾지 못했습니다. 더 구체적인 주소(도로명 또는 지번, 동/호수 제외)로 다시 시도해 주세요. 원본 응답: ${JSON.stringify(json).slice(0, 300)}`);
