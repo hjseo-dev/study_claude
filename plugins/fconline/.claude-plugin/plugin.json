@@ -1,0 +1,8 @@
+{
+  "name": "fconline",
+  "description": "FC 온라인 최근 전적을 넥슨 오픈API로 분석해서 감독처럼 포메이션/전술/선수 보강을 추천하는 스킬",
+  "version": "0.1.0",
+  "author": {
+    "name": "study-claude team"
+  }
+}
