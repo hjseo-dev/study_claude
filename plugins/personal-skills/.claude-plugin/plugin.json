@@ -1,8 +1,0 @@
-{
-  "name": "personal-skills",
-  "description": "일상/업무/개인 개발용 개인 Claude Code 스킬 모음",
-  "version": "0.1.0",
-  "author": {
-    "name": "study-claude team"
-  }
-}

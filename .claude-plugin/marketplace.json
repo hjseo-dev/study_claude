@@ -7,9 +7,9 @@
   },
   "plugins": [
     {
-      "name": "personal-skills",
-      "description": "일상/업무/개인 개발용 개인 Claude Code 스킬 모음",
-      "source": "./plugins/personal-skills"
+      "name": "bookmark",
+      "description": "웹 URL의 내용을 파악해서 D:\\project\\bookmark 폴더에 정리된 마크다운 문서로 저장하는 스킬",
+      "source": "./plugins/bookmark"
     },
     {
       "name": "umbrella",
