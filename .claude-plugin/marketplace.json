@@ -25,6 +25,16 @@
       "name": "fconline",
       "description": "FC 온라인 최근 전적을 넥슨 오픈API로 분석해서 감독처럼 포메이션/전술/선수 보강을 추천하는 스킬",
       "source": "./plugins/fconline"
+    },
+    {
+      "name": "skill-creator",
+      "description": "새 Claude Code 스킬을 인터뷰-설계-테스트-반복개선 루프로 만들어주는 스킬",
+      "source": "./plugins/skill-creator"
+    },
+    {
+      "name": "weather",
+      "description": "서울 금천구 독산1동 기준 오늘 날씨를 기상청 단기예보 API로 조회해서 알려주는 스킬",
+      "source": "./plugins/weather"
     }
   ]
 }
