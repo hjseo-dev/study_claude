@@ -33,7 +33,7 @@
     },
     {
       "name": "skill-creator",
-      "description": "가이드 Q&A를 통해 새 Claude Code 스킬(SKILL.md)을 만들어주는 스킬",
+      "description": "새 Claude Code 스킬을 인터뷰-설계-테스트-반복개선 루프로 만들어주는 스킬",
       "source": "./plugins/skill-creator"
     },
     {
@@ -45,6 +45,16 @@
       "name": "cafe-with-study",
       "description": "지역을 기준으로 네이버 지역검색 API + 네이버 플레이스 리뷰 키워드 스크래핑을 이용해 공부/작업하기 좋은(콘센트, 조용함, 1인 이용 등) 카페를 추천하는 스킬",
       "source": "./plugins/cafe-with-study"
+    },
+    {
+      "name": "weather",
+      "description": "서울 금천구 독산1동 기준 오늘 날씨를 기상청 단기예보 API로 조회해서 알려주는 스킬",
+      "source": "./plugins/weather"
+    },
+    {
+      "name": "mall-congestion",
+      "description": "스타필드 지점의 실시간 주차장 혼잡도(여유/혼잡/만차)를 공개 API로 확인하는 스킬",
+      "source": "./plugins/mall-congestion"
     }
   ]
 }
