@@ -83,7 +83,7 @@ agent: Explore                   # context: fork이고 특정 에이전트 타�
    - 플러그인 스코프(메인+서브 스킬 묶음): `D:\project\study_claude\plugins\<plugin-name>\.claude-plugin\plugin.json` + 메인/서브 스킬 전부 `plugins\<plugin-name>\skills\<skill-name>\SKILL.md`로 (루트에는 SKILL.md를 두지 않는다)
 2. `SKILL.md` 작성: 프론트매터 + "스킬이 뭘 하는지, 발동됐을 때 따를 단계별 지침, 부속 파일 링크(`[references/x.md](references/x.md)` 형식 — 상대경로, 필요할 때만 읽히도록)".
 3. 논의된 `references/`, `scripts/`, `examples/`, `templates/` 파일 작성. 프로젝트에 기존 컨벤션이 있으면 그걸 따른다.
-4. 요청받지 않은 파일은 만들지 않는다. 단, **플러그인 스코프에서 API 키 발급이나 초기 설정(닉네임/주소 등)이 필요한 스킬**이라면 `USAGE.md`(사전 준비·호출 방법·결과 예시·자주 겪는 문제·개선 아이디어)를 함께 작성한다 — home-eta/fconline이 이미 이 컨벤션을 쓰고 있다. 설정이 필요 없는 간단한 스킬(bookmark, umbrella처럼)까지 무조건 만들 필요는 없다.
+4. **플러그인 스코프 스킬은 항상 `USAGE.md`(사전 준비·호출 방법·결과 예시·자주 겪는 문제·개선 아이디어)를 함께 작성한다** — 처음엔 "API 키가 필요한 경우만" 만들다가, 메인+서브 스킬 구조(spec-writer)에서 이걸 빠뜨려 지적받은 뒤 "모든 플러그인 스킬에 예외 없이 작성"으로 규칙을 넓혔다(2026-08-30). 요청받지 않은 다른 파일(스크립트/템플릿 등)은 여전히 만들지 않는다.
 5. **플러그인 스코프라면 추가로**, 이 4단계를 빠짐없이 순서대로 실행한다 — 등록/검증까지만 하고 설치를 빠뜨리는 게 가장 흔한 실수다:
    1. `.claude-plugin/marketplace.json`에 항목 등록(`name`, `description`, `source: "./plugins/<name>"`)
    2. `claude plugin validate "D:\project\study_claude"`로 매니페스트 검증
