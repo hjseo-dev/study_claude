@@ -25,6 +25,26 @@
       "name": "fconline",
       "description": "FC 온라인 최근 전적을 넥슨 오픈API로 분석해서 감독처럼 포메이션/전술/선수 보강을 추천하는 스킬",
       "source": "./plugins/fconline"
+    },
+    {
+      "name": "auth-demo",
+      "description": "회원가입/로그인/세션 토큰/보호된 동작/로그아웃 흐름을 로컬에서 시연하는 사용자 인증 학습용 스킬",
+      "source": "./plugins/auth-demo"
+    },
+    {
+      "name": "skill-creator",
+      "description": "가이드 Q&A를 통해 새 Claude Code 스킬(SKILL.md)을 만들어주는 스킬",
+      "source": "./plugins/skill-creator"
+    },
+    {
+      "name": "drive-cost",
+      "description": "출발지에서 목적지까지 자차로 왕복할 때 드는 통행료(톨비)와 기름값을 계산하는 스킬",
+      "source": "./plugins/drive-cost"
+    },
+    {
+      "name": "cafe-with-study",
+      "description": "지역을 기준으로 네이버 지역검색 API + 네이버 플레이스 리뷰 키워드 스크래핑을 이용해 공부/작업하기 좋은(콘센트, 조용함, 1인 이용 등) 카페를 추천하는 스킬",
+      "source": "./plugins/cafe-with-study"
     }
   ]
 }

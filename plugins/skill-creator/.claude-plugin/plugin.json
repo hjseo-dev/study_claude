@@ -1,0 +1,8 @@
+{
+  "name": "skill-creator",
+  "description": "가이드 Q&A를 통해 새 Claude Code 스킬(SKILL.md)을 만들어주는 스킬",
+  "version": "0.1.0",
+  "author": {
+    "name": "study-claude team"
+  }
+}
