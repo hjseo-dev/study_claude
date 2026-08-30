@@ -102,5 +102,14 @@ disable-model-invocation: true
 
 ## 6. 완료 보고
 
-저장한 파일 경로를 알려주고, "Jira에 올릴 배경 초안이 필요하면
-`/spec-writer:jira-draft`를 실행하세요"라고 안내한다.
+저장한 파일 경로를 알려주고, "Jira 배경 초안도 바로 만들어드릴까요?"라고
+`AskUserQuestion`으로 물어본다.
+
+- **예**라고 하면, 새 명령을 기다리지 말고 **그 자리에서 이어서**
+  `../jira-draft/SKILL.md`(상대경로: `plugins/spec-writer/skills/jira-draft/SKILL.md`)를
+  `Read`로 읽고 그 지침을 그대로 따른다. 이때 "1. 원본 확인" 단계에서 파일을
+  다시 찾을 필요 없이, 방금 5번에서 저장한 파일을 그대로 원본으로 쓴다.
+  (한 번의 `/spec-writer:spec-writer` 호출로 분석 문서 + Jira 초안까지 같이
+  나오는 효과 — 별도로 `/spec-writer:jira-draft`를 또 칠 필요가 없다.)
+- **아니오**면, 나중에 필요할 때 `/spec-writer:jira-draft`를 실행하면 된다고
+  안내하고 끝낸다.
