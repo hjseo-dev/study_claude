@@ -22,7 +22,10 @@ disable-model-invocation: true
 - **스코프**: 이 스킬을 어디에 둘지.
   - **개인** (`~/.claude/skills/<name>/SKILL.md`) — 이 사람의 모든 프로젝트에서 사용. `~/.claude/skills/` 바로 아래에 있어야 함(한 단계만 스캔하므로 중첩 폴더는 무시됨).
   - **프로젝트** (`.claude/skills/<name>/SKILL.md`) — 현재 저장소 전용.
-  - **플러그인** (`D:\project\study_claude\plugins\<name>\`) — 팀과 공유하고 다른 프로젝트에서도 쓰고 싶을 때. **우리 팀 컨벤션은 1 플러그인 = 1 스킬, `SKILL.md`는 플러그인 루트에 직접 위치** (`plugins/<name>/SKILL.md`, `plugins/<name>/.claude-plugin/plugin.json`) — `skills/<name>/` 중첩 구조는 쓰지 않는다.
+  - **플러그인** (`D:\project\study_claude\plugins\<name>\`) — 팀과 공유하고 다른 프로젝트에서도 쓰고 싶을 때. 여기서 두 가지 하위 패턴이 있다:
+    - **독립 스킬** (기본): `SKILL.md`를 플러그인 루트에 직접 둔다(`plugins/<name>/SKILL.md`). 우리 팀 컨벤션은 1 플러그인 = 1 스킬.
+    - **메인 스킬 + 서브 스킬 묶음**: 서로 관련된 스킬 여러 개(예: 메인 분석 스킬 + 그 결과를 활용하는 보조 스킬)를 한 플러그인에 묶고 싶을 때는, **전부** `plugins/<plugin-name>/skills/<skill-name>/SKILL.md` 형태로 둔다 (`/plugin-name:skill-name`으로 각각 호출됨).
+    - ⚠️ **이 둘을 섞지 않는다.** 플러그인 루트에 `SKILL.md`를 두면서 동시에 `skills/` 하위 폴더도 만들면, Claude Code가 `skills/` 쪽만 인식하고 **루트 SKILL.md를 완전히 무시한다** (실제로 겪은 문제 — `claude plugin details`로 컴포넌트 목록을 찍어보면 바로 드러난다). 서브 스킬이 하나라도 필요하면 메인 스킬도 반드시 `skills/<메인스킬이름>/SKILL.md`로 옮긴다.
 - **트리거 조건**: 어떤 문구/상황에서 발동해야 하는지. 구체적인 예시 문구(한국어 포함)를 받는다 — 이게 `description`이 되고, description만 보고 트리거 여부가 결정되므로 매우 중요하다.
 - **호출 주체**:
   - 사용자(`/name`)와 클로드 자동 트리거 둘 다 — 기본값, 별도 프론트매터 불필요.
@@ -76,7 +79,8 @@ agent: Explore                   # context: fork이고 특정 에이전트 타�
 
 1. 디렉토리 생성:
    - 개인/프로젝트 스코프: `<scope-root>/skills/<name>/`
-   - 플러그인 스코프: `D:\project\study_claude\plugins\<name>\` + `.claude-plugin\plugin.json`
+   - 플러그인 스코프(독립 스킬): `D:\project\study_claude\plugins\<name>\` + `.claude-plugin\plugin.json`
+   - 플러그인 스코프(메인+서브 스킬 묶음): `D:\project\study_claude\plugins\<plugin-name>\.claude-plugin\plugin.json` + 메인/서브 스킬 전부 `plugins\<plugin-name>\skills\<skill-name>\SKILL.md`로 (루트에는 SKILL.md를 두지 않는다)
 2. `SKILL.md` 작성: 프론트매터 + "스킬이 뭘 하는지, 발동됐을 때 따를 단계별 지침, 부속 파일 링크(`[references/x.md](references/x.md)` 형식 — 상대경로, 필요할 때만 읽히도록)".
 3. 논의된 `references/`, `scripts/`, `examples/`, `templates/` 파일 작성. 프로젝트에 기존 컨벤션이 있으면 그걸 따른다.
 4. 요청받지 않은 파일은 만들지 않는다. 단, **플러그인 스코프에서 API 키 발급이나 초기 설정(닉네임/주소 등)이 필요한 스킬**이라면 `USAGE.md`(사전 준비·호출 방법·결과 예시·자주 겪는 문제·개선 아이디어)를 함께 작성한다 — home-eta/fconline이 이미 이 컨벤션을 쓰고 있다. 설정이 필요 없는 간단한 스킬(bookmark, umbrella처럼)까지 무조건 만들 필요는 없다.
@@ -133,6 +137,7 @@ agent: Explore                   # context: fork이고 특정 에이전트 타�
 - 서로 관련 없는 기능을 한 스킬에 욱여넣지 않는다 — 트리거 조건이 다르면 스킬을 나누라고 제안한다.
 - 이유 없이 `context: fork`를 기본값으로 쓰지 않는다 — 도구 출력이 지저분하거나 백그라운드 실행이 필요할 때만.
 - 요청받지 않은 스크립트/템플릿을 만들지 않는다.
+- 플러그인 루트 `SKILL.md`와 `skills/` 하위 폴더를 한 플러그인에 같이 두지 않는다 — `skills/`가 있으면 루트 `SKILL.md`는 무시된다. 서브 스킬이 필요하면 메인 스킬도 `skills/<name>/`로 옮긴다.
 - 개인 스킬을 `~/.claude/skills/` 아래 그룹 폴더로 중첩시키지 않는다 — 바로 아래(direct child)만 인식된다.
 - `marketplace.json` 등록 + `claude plugin validate`까지만 하고 **`claude plugin install`을 빠뜨리지 않는다** — 실제로 겪은 실수다. 등록/검증은 설치가 아니고, install을 안 하면 새 세션에서도 `/<name>`이 "Unknown command"로 뜬다. 산출물 안내 전에 반드시 install까지 하고 실제 트리거를 확인한다.
 - 4/6/7번 체크포인트를 건너뛰고 임의로 무겁게/가볍게 정하지 않는다 — 항상 먼저 물어본다.
