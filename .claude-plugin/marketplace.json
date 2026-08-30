@@ -35,6 +35,11 @@
       "name": "weather",
       "description": "서울 금천구 독산1동 기준 오늘 날씨를 기상청 단기예보 API로 조회해서 알려주는 스킬",
       "source": "./plugins/weather"
+    },
+    {
+      "name": "savings-compare",
+      "description": "예금/적금 상품을 금융감독원 API로 조회해서, 넣을 금액·기간에 맞춰 세후 수령액이 가장 높은 상품을 추천해주는 스킬",
+      "source": "./plugins/savings-compare"
     }
   ]
 }
