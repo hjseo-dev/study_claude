@@ -58,7 +58,7 @@
     },
     {
       "name": "spec-writer",
-      "description": "요구사항을 프로젝트 코드와 함께 확인해서 5W1H 방식으로 정리하고, 필요하면 Mermaid 다이어그램까지 포함한 분석 문서를 만들어주는 스킬 (Jira 배경 초안 작성 서브 스킬 포함)",
+      "description": "요구사항을 프로젝트 코드와 함께 확인해서 5W1H 방식으로 정리하고, 필요하면 Mermaid 다이어그램까지 포함한 분석 문서를 만들어주는 스킬 (Jira 배경 초안 작성, 회의 발표 대본 검토 서브 스킬 포함)",
       "source": "./plugins/spec-writer"
     }
   ]

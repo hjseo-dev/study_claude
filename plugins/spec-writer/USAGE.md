@@ -6,11 +6,12 @@ Mermaid 다이어그램까지 포함한 분석 문서를 만들어주는 스킬�
 
 ## 1. 호출 방법
 
-이 플러그인은 스킬 두 개를 묶고 있어서, 콜론 뒤 이름이 서로 다릅니다.
+이 플러그인은 스킬 세 개를 묶고 있어서, 콜론 뒤 이름이 서로 다릅니다.
 
 ```
-/spec-writer:spec-writer          # 메인 — 5W1H 분석 문서 작성
-/spec-writer:jira-draft           # 서브 — Jira 배경 초안만 따로 작성
+/spec-writer:spec-writer            # 메인 — 5W1H 분석 문서 작성
+/spec-writer:jira-draft             # 서브 — Jira 배경 초안만 따로 작성
+/spec-writer:meeting-speech-review  # 서브 — 회의/발표 대본 검토·수정
 ```
 
 `/spec-writer:spec-writer 로그인 실패 버그`처럼 요구사항을 인자로 바로
@@ -30,6 +31,12 @@ Mermaid 다이어그램까지 포함한 분석 문서를 만들어주는 스킬�
 `jira-draft`는 **항상 spec-writer 분석 문서를 재료로 삼습니다.** 해당
 요구사항의 분석 문서가 없으면, 대화 내용만으로 임의로 쓰지 않고 먼저
 spec-writer 분석부터 진행할지 물어봅니다.
+
+- **회의/발표에서 말할 대본을 검토받고 싶으면** → `meeting-speech-review`를
+  실행하고 대본 텍스트를 줍니다. 같은 주제의 spec-writer 분석 문서나
+  참고 데이터를 함께 주면 그 내용과 대조해서 빠진 부분을 짚어주고, 없으면
+  대본 자체만으로 내용 완결성과 말하기 어순을 점검합니다. (`jira-draft`와
+  달리 분석 문서가 필수는 아닙니다.)
 
 ## 3. 사용 흐름 (메인 스킬)
 
