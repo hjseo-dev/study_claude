@@ -1,8 +1,0 @@
-{
-  "name": "savings-compare",
-  "description": "예금/적금 상품을 금융감독원 API로 조회해서, 넣을 금액·기간에 맞춰 세후 수령액이 가장 높은 상품을 추천해주는 스킬",
-  "version": "0.1.0",
-  "author": {
-    "name": "study-claude team"
-  }
-}

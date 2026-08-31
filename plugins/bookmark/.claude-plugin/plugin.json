@@ -1,8 +1,0 @@
-{
-  "name": "bookmark",
-  "description": "웹 URL의 내용을 파악해서 D:\\project\\bookmark 폴더에 정리된 마크다운 문서로 저장하는 스킬",
-  "version": "0.1.0",
-  "author": {
-    "name": "study-claude team"
-  }
-}

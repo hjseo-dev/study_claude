@@ -1,8 +1,0 @@
-{
-  "name": "stock-picks",
-  "description": "관심 분야 키워드를 받아 관련 테마의 시가총액 상위 종목을 알려주는 스킬",
-  "version": "0.1.0",
-  "author": {
-    "name": "study-claude team"
-  }
-}

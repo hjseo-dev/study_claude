@@ -1,8 +1,0 @@
-{
-  "name": "home-eta",
-  "description": "자취방에서 본가까지 자차 이동 시간을 여러 출발 시점 기준으로 알려주는 스킬",
-  "version": "0.1.0",
-  "author": {
-    "name": "study-claude team"
-  }
-}

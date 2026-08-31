@@ -1,8 +1,0 @@
-{
-  "name": "cafe-with-study",
-  "description": "지역을 기준으로 네이버 지역검색 API + 네이버 플레이스 리뷰 키워드 스크래핑을 이용해 공부/작업하기 좋은(콘센트, 조용함, 1인 이용 등) 카페를 추천하는 스킬",
-  "version": "0.1.0",
-  "author": {
-    "name": "study-claude team"
-  }
-}
