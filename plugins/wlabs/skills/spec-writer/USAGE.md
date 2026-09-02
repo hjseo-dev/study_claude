@@ -6,7 +6,15 @@ Mermaid 다이어그램까지 포함한 분석 문서를 만들어주는 스킬�
 
 ## 1. 호출 방법
 
-이 플러그인은 스킬 세 개를 묶고 있어서, 콜론 뒤 이름이 서로 다릅니다.
+spec-writer 관련 스킬은 세 개이며, wlabs 플러그인 안에 콜론 뒤 이름으로 구분됩니다.
+
+```
+/wlabs:spec-writer            # 메인 — 5W1H 분석 문서 작성
+/wlabs:jira-draft             # 서브 — Jira 배경 초안만 따로 작성
+/wlabs:meeting-speech-review  # 서브 — 회의/발표 대본 검토·수정
+```
+
+`/wlabs:spec-writer 로그인 실패 버그`처럼 요구사항을 인자로 바로
 붙일 수도 있고, 그냥 `/wlabs:spec-writer`만 치면 대화로 물어봅니다.
 
 둘 다 자동으로는 실행되지 않습니다 (`disable-model-invocation: true`).
