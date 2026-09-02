@@ -119,7 +119,9 @@ flowchart TD
 ```
 
 권한/인가 규칙이 URL 패턴이나 미들웨어 기반으로 계층화돼 있다면, 그 흐름도 별도
-다이어그램(flowchart LR)으로 표현할 수 있다.
+다이어그램(flowchart LR)으로 표현할 수 있다. (별도로 HTML Artifact로
+온보딩 결과를 시각화하게 되면 `../../references/visual-style.md`를 따른다 —
+Mermaid 자체에는 적용되지 않는다.)
 
 ### Phase 3: 컨벤션 탐지
 
