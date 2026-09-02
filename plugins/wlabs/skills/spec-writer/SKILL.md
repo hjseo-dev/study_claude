@@ -14,9 +14,6 @@ disable-model-invocation: true
 [references/5w1h-template.md](references/5w1h-template.md)에 정리되어 있다 —
 작성 전에 반드시 읽는다.
 
-> Jira 등에 올릴 배경 설명 초안만 따로 필요하면, 이 스킬 대신
-> `/wlabs:jira-draft` 서브 스킬을 쓴다.
-
 ## 0. 요구사항 파악
 
 사용자가 대화로 설명한 내용을 요구사항으로 삼는다. Jira 티켓 본문 등을
@@ -104,14 +101,4 @@ Artifact로 시각화/비교 자료를 만들게 되면 `../../references/visual
 
 ## 6. 완료 보고
 
-저장한 파일 경로를 알려주고, "Jira 배경 초안도 바로 만들어드릴까요?"라고
-`AskUserQuestion`으로 물어본다.
-
-- **예**라고 하면, 새 명령을 기다리지 말고 **그 자리에서 이어서**
-  `../jira-draft/SKILL.md`(상대경로: `plugins/wlabs/skills/jira-draft/SKILL.md`)를
-  `Read`로 읽고 그 지침을 그대로 따른다. 이때 "1. 원본 확인" 단계에서 파일을
-  다시 찾을 필요 없이, 방금 5번에서 저장한 파일을 그대로 원본으로 쓴다.
-  (한 번의 `/wlabs:spec-writer` 호출로 분석 문서 + Jira 초안까지 같이
-  나오는 효과 — 별도로 `/wlabs:jira-draft`를 또 칠 필요가 없다.)
-- **아니오**면, 나중에 필요할 때 `/wlabs:jira-draft`를 실행하면 된다고
-  안내하고 끝낸다.
+저장한 파일 경로를 알려준다.

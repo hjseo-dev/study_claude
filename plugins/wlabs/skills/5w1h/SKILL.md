@@ -14,6 +14,10 @@ disable-model-invocation: true
 [references/5w1h-template.md](references/5w1h-template.md)에 정리되어
 있다 — 작성 전에 반드시 읽는다.
 
+> 이 분석 내용을 회의/발표에서 말로 전달할 대본으로 다듬고 싶으면
+> `/wlabs:meeting-speech-review`를 쓴다. 단, 이 스킬이 자동으로 제안하지는
+> 않는다 — 사용자가 명시적으로 호출했을 때만 실행되는 별개 스킬이다.
+
 ## 0. project-struct 배경지식 확보
 
 1. 현재 프로젝트 루트에 `docs/STRUCTURE.md`가 있는지 `Glob`으로 확인한다.
