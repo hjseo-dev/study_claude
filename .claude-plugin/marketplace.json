@@ -7,59 +7,9 @@
   },
   "plugins": [
     {
-      "name": "bookmark",
-      "description": "웹 URL의 내용을 파악해서 D:\\project\\bookmark 폴더에 정리된 마크다운 문서로 저장하는 스킬",
-      "source": "./plugins/bookmark"
-    },
-    {
-      "name": "umbrella",
-      "description": "서울 금천구 독산1동 기준으로 기상청 단기예보를 조회해 우산이 필요한지 알려주는 스킬",
-      "source": "./plugins/umbrella"
-    },
-    {
-      "name": "home-eta",
-      "description": "자취방에서 본가까지 자차 이동 시간을 여러 출발 시점 기준으로 알려주는 스킬",
-      "source": "./plugins/home-eta"
-    },
-    {
-      "name": "fconline",
-      "description": "FC 온라인 최근 전적을 넥슨 오픈API로 분석해서 감독처럼 포메이션/전술/선수 보강을 추천하는 스킬",
-      "source": "./plugins/fconline"
-    },
-    {
-      "name": "auth-demo",
-      "description": "회원가입/로그인/세션 토큰/보호된 동작/로그아웃 흐름을 로컬에서 시연하는 사용자 인증 학습용 스킬",
-      "source": "./plugins/auth-demo"
-    },
-    {
-      "name": "skill-creator",
-      "description": "새 Claude Code 스킬을 인터뷰-설계-테스트-반복개선 루프로 만들어주는 스킬",
-      "source": "./plugins/skill-creator"
-    },
-    {
-      "name": "drive-cost",
-      "description": "출발지에서 목적지까지 자차로 왕복할 때 드는 통행료(톨비)와 기름값을 계산하는 스킬",
-      "source": "./plugins/drive-cost"
-    },
-    {
-      "name": "cafe-with-study",
-      "description": "지역을 기준으로 네이버 지역검색 API + 네이버 플레이스 리뷰 키워드 스크래핑을 이용해 공부/작업하기 좋은(콘센트, 조용함, 1인 이용 등) 카페를 추천하는 스킬",
-      "source": "./plugins/cafe-with-study"
-    },
-    {
-      "name": "weather",
-      "description": "서울 금천구 독산1동 기준 오늘 날씨를 기상청 단기예보 API로 조회해서 알려주는 스킬",
-      "source": "./plugins/weather"
-    },
-    {
-      "name": "savings-compare",
-      "description": "예금/적금 상품을 금융감독원 API로 조회해서, 넣을 금액·기간에 맞춰 세후 수령액이 가장 높은 상품을 추천해주는 스킬",
-      "source": "./plugins/savings-compare"
-    },
-    {
-      "name": "spec-writer",
-      "description": "요구사항을 프로젝트 코드와 함께 확인해서 5W1H 방식으로 정리하고, 필요하면 Mermaid 다이어그램까지 포함한 분석 문서를 만들어주는 스킬 (Jira 배경 초안 작성, 회의 발표 대본 검토 서브 스킬 포함)",
-      "source": "./plugins/spec-writer"
+      "name": "wlabs",
+      "description": "개인/팀용 생활·업무 스킬 모음 (본가 이동시간, 통행료/기름값, 날씨, 예적금 비교, 카페 추천, FC온라인 전적 분석, 종목 추천, 북마크 정리, 요구사항 5W1H 분석, Jira 초안, 회의 발표 대본 검토, 프로젝트 구조 분석, 스킬 제작 등). 각 스킬은 /wlabs:<스킬명>으로 호출한다.",
+      "source": "./plugins/wlabs"
     }
   ]
 }
