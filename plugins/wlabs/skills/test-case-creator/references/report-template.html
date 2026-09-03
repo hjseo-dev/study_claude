@@ -1,0 +1,210 @@
+<!--
+  test-case-creator 결과 리포트 스타일 참고용 템플릿.
+  실제 실행 시에는 이 구조를 그대로 따라 실제 값으로 채운 완전한 HTML 파일을
+  새로 작성한다(플레이스홀더 치환 엔진이 없으므로 이 파일 자체를 복사해서 쓰지
+  않고, 이 구조/스타일을 참고해서 내용을 직접 채워 넣는다). 외부 CDN/폰트 없이
+  전부 인라인으로 되어 있어야 file://로 오프라인에서도 그대로 보인다.
+-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>테스트케이스 리포트 — {{프로젝트명}}</title>
+<style>
+  :root {
+    --bg: #f7f7f8;
+    --card: #ffffff;
+    --text: #1f2328;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --func: #2563eb;
+    --sec: #dc2626;
+    --stab: #d97706;
+    --reg: #7c3aed;
+    --ok: #16a34a;
+    --fail: #dc2626;
+    --local: #b45309;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 32px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
+    line-height: 1.55;
+  }
+  .wrap { max-width: 960px; margin: 0 auto; }
+  header {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 20px;
+  }
+  header h1 { margin: 0 0 8px; font-size: 22px; }
+  .meta { color: var(--muted); font-size: 14px; }
+  .meta span { margin-right: 16px; }
+
+  .callout {
+    background: #fff7ed;
+    border: 1px solid #fdba74;
+    border-left: 5px solid var(--stab);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+  }
+  .callout h2 { margin: 0 0 8px; font-size: 16px; }
+  .callout ul { margin: 0; padding-left: 20px; }
+  .callout li { margin-bottom: 6px; }
+
+  section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+  }
+  section h2 { margin-top: 0; font-size: 17px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; font-size: 13px; }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+  }
+  .badge.func { background: var(--func); }
+  .badge.sec { background: var(--sec); }
+  .badge.stab { background: var(--stab); }
+  .badge.reg { background: var(--reg); }
+  .badge.local { background: var(--local); }
+  .badge.ok { background: var(--ok); }
+  .badge.fail { background: var(--fail); }
+
+  code {
+    background: #f1f2f4;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+
+  .summary-grid {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .summary-grid .stat {
+    flex: 1 1 120px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    text-align: center;
+  }
+  .summary-grid .stat .num { font-size: 22px; font-weight: 700; }
+  .summary-grid .stat .label { font-size: 12px; color: var(--muted); }
+
+  footer { color: var(--muted); font-size: 12px; text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>🧪 테스트케이스 리포트 — {{프로젝트명}}</h1>
+    <div class="meta">
+      <span><b>비교:</b> {{base브랜치}} ⟶ {{target브랜치}}</span>
+      <span><b>커밋:</b> {{포함된 커밋 수}}개</span>
+      <span><b>생성 일시:</b> {{yyyy-MM-dd HH:mm}}</span>
+    </div>
+  </header>
+
+  <!-- 발견된 이슈가 있을 때만 포함, 없으면 이 section 전체 생략 -->
+  <div class="callout">
+    <h2>⚠️ 발견된 이슈</h2>
+    <ul>
+      <li><b>{{파일:줄}}</b> — {{이슈 설명, 근거 포함}}</li>
+    </ul>
+  </div>
+
+  <section>
+    <h2>📋 테스트케이스</h2>
+    <table>
+      <thead>
+        <tr><th>ID</th><th>관점</th><th>시나리오</th><th>기대 결과</th><th>Mock</th><th>비고</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>F1</td>
+          <td><span class="badge func">기능</span></td>
+          <td>{{시나리오}}</td>
+          <td>{{기대 결과}}</td>
+          <td>-</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>ST1</td>
+          <td><span class="badge stab">안정성</span></td>
+          <td>{{시나리오}}</td>
+          <td>{{기대 결과}}</td>
+          <td><span class="badge local">로컬 전용</span></td>
+          <td>{{비고}}</td>
+        </tr>
+        <!-- 보안(sec)/회귀(reg) 뱃지도 동일한 패턴으로 -->
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>📁 생성된 테스트 파일</h2>
+    <table>
+      <thead><tr><th>파일</th><th>대응 케이스</th><th>구분</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><code>{{상대경로}}</code></td>
+          <td>F1</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><code>{{상대경로}}</code></td>
+          <td>ST1</td>
+          <td><span class="badge local">로컬 전용</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 실행했을 때만 포함 -->
+  <section>
+    <h2>▶️ 실행 결과</h2>
+    <table>
+      <thead><tr><th>테스트</th><th>결과</th><th>비고</th></tr></thead>
+      <tbody>
+        <tr><td>{{테스트명}}</td><td><span class="badge ok">통과</span></td><td></td></tr>
+        <tr><td>{{테스트명}}</td><td><span class="badge fail">실패</span></td><td>{{실패 원인 요약}}</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>📊 요약</h2>
+    <div class="summary-grid">
+      <div class="stat"><div class="num">{{기능 수}}</div><div class="label">기능</div></div>
+      <div class="stat"><div class="num">{{보안 수}}</div><div class="label">보안성</div></div>
+      <div class="stat"><div class="num">{{안정성 수}}</div><div class="label">안정성</div></div>
+      <div class="stat"><div class="num">{{회귀 수}}</div><div class="label">회귀</div></div>
+      <div class="stat"><div class="num">{{로컬전용 수}}</div><div class="label">로컬 전용</div></div>
+    </div>
+  </section>
+
+  <footer>test-case-creator · {{target브랜치}} vs {{base브랜치}} 기준 자동 생성</footer>
+
+</div>
+</body>
+</html>
