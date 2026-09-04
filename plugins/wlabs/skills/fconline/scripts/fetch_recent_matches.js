@@ -12,9 +12,9 @@
 
 const fs = require("fs");
 const path = require("path");
-const os = require("os");
 
-const CONFIG_PATH = path.join(os.homedir(), ".claude", "skill-data", "fconline", "profile.json");
+const REPO_ROOT = path.resolve(__dirname, "..", "..", "..", "..", "..");
+const CONFIG_PATH = path.join(REPO_ROOT, ".private", "fconline", "profile.json");
 const API_BASE = "https://open.api.nexon.com/fconline/v1";
 const DEFAULT_LIMIT = 10;
 const DEFAULT_MATCHTYPE = 50; // 공식경기

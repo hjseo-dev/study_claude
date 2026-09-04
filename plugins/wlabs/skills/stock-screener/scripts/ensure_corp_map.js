@@ -13,10 +13,10 @@
 
 const fs = require("fs");
 const path = require("path");
-const os = require("os");
 const { execFileSync } = require("child_process");
 
-const CACHE_DIR = path.join(os.homedir(), ".claude", "skill-data", "stock-screener");
+const REPO_ROOT = path.resolve(__dirname, "..", "..", "..", "..", "..");
+const CACHE_DIR = path.join(REPO_ROOT, ".private", "stock-screener");
 const CACHE_FILE = path.join(CACHE_DIR, "corp_map_cache.json");
 const CACHE_MAX_AGE_DAYS = 7;
 

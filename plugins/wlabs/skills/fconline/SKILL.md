@@ -11,9 +11,8 @@ context: fork
 포메이션·전술 경향·플레이 스타일·강약점을 분석하고 감독처럼 다음 경기를
 위한 포메이션/전술 조정과 선수 보강 방향을 추천한다.
 
-> 게임 닉네임과 API 조회 결과는 이 리포지토리(GitHub에 공개됨) 안 어디에도
-> 저장하지 않는다. 항상 사용자 홈 디렉터리(리포 밖)의 로컬 설정 파일에만
-> 저장한다.
+> 게임 닉네임과 API 조회 결과는 커밋되지 않는다. 항상 리포 루트의 `.private/`
+> (← `.gitignore`로 커밋 제외)에만 저장한다.
 
 ## 실행 방법
 
@@ -133,11 +132,10 @@ setx FCONLINE_KEY "발급받은_API_키"
 ## 닉네임/ouid 저장 위치
 
 `set_profile.js`가 닉네임을 넥슨 오픈API로 ouid(계정 식별자)로 변환한 뒤,
-사용자 홈 디렉터리의 다음 경로에 저장한다 (이 리포지토리 밖이므로 git으로
-추적/커밋되지 않는다):
+리포 루트의 `.private/`(← `.gitignore`로 커밋 제외)에 저장한다:
 
 ```
-%USERPROFILE%\.claude\skill-data\fconline\profile.json
+D:\dev\study_claude\.private\fconline\profile.json
 ```
 
 ## 참고: matchtype

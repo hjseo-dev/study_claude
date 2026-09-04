@@ -60,11 +60,11 @@ setx OPINET_API_KEY "발급받은_certkey"
 (예: "아반떼 CN7"). 한국에너지공단 API로 연비를 자동 조회한 뒤 확인을 받고
 저장합니다. API 조회가 안 되면 연비(km/L)와 유종을 직접 입력해도 됩니다.
 
-- 차량 정보는 이 리포지토리(GitHub에 공개됨) 안에는 저장되지 않습니다.
-- 대신 사용자 홈 디렉터리의 로컬 파일에만 저장됩니다.
+- 차량 정보는 커밋되지 않습니다.
+- 리포 루트의 `.private/`(← `.gitignore`로 커밋 제외)에만 저장됩니다.
 
   ```
-  %USERPROFILE%\.claude\skill-data\drive-cost\car.json
+  D:\dev\study_claude\.private\drive-cost\car.json
   ```
 
 ## 4. 결과 예시

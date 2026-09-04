@@ -4,3 +4,7 @@
 
 # bkit 플러그인 로컬 런타임/감사 로그 (생성물, 저장소에 불필요)
 .bkit/
+
+# 개인정보를 다루는 wlabs 스킬(fconline/home-eta/goal-saving-planner 등)의
+# 로컬 데이터 — 이 리포지토리는 GitHub에 공개되므로 절대 커밋되면 안 됨
+.private/

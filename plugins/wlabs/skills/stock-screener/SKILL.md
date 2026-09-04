@@ -151,12 +151,12 @@ setx STOCK_API_KEY "발급받은_공공데이터포털_서비스키"
 ## 저장 위치
 
 `set_watchlist.js`가 관심종목을, `ensure_corp_map.js`가 DART corp_code
-매핑 캐시(7일 유효)를 사용자 홈 디렉터리의 다음 경로에 저장한다 (이
-리포지토리 밖이므로 git으로 추적/커밋되지 않는다):
+매핑 캐시(7일 유효)를 리포 루트의 `.private/`(← `.gitignore`로 커밋 제외)에
+저장한다:
 
 ```
-%USERPROFILE%\.claude\skill-data\stock-screener\watchlist.json
-%USERPROFILE%\.claude\skill-data\stock-screener\corp_map_cache.json
+D:\dev\study_claude\.private\stock-screener\watchlist.json
+D:\dev\study_claude\.private\stock-screener\corp_map_cache.json
 ```
 
 ## 참고

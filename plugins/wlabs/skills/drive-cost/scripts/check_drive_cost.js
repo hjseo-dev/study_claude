@@ -11,9 +11,9 @@
 
 const fs = require("fs");
 const path = require("path");
-const os = require("os");
 
-const CAR_CONFIG_PATH = path.join(os.homedir(), ".claude", "skill-data", "drive-cost", "car.json");
+const REPO_ROOT = path.resolve(__dirname, "..", "..", "..", "..", "..");
+const CAR_CONFIG_PATH = path.join(REPO_ROOT, ".private", "drive-cost", "car.json");
 const SEARCH_OPTION_RECOMMENDED = "0"; // 추천 경로 (유료도로 포함)
 
 function getTmapKey() {

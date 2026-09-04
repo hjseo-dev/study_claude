@@ -10,9 +10,9 @@
 
 const fs = require("fs");
 const path = require("path");
-const os = require("os");
 
-const CONFIG_PATH = path.join(os.homedir(), ".claude", "skill-data", "home-eta", "locations.json");
+const REPO_ROOT = path.resolve(__dirname, "..", "..", "..", "..", "..");
+const CONFIG_PATH = path.join(REPO_ROOT, ".private", "home-eta", "locations.json");
 const DEPART_OFFSETS_MIN = [0, 30, 60, 90];
 const SEARCH_OPTION_FREE_ROAD = "01"; // 교통최적 + 무료우선(톨게이트 회피)
 

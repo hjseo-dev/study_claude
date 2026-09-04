@@ -1,15 +1,16 @@
 #!/usr/bin/env node
-// 자취방/본가 주소를 지오코딩해서 리포지토리 밖(사용자 홈 디렉터리)의 로컬 파일에 저장한다.
+// 자취방/본가 주소를 지오코딩해서 리포 루트의 .private/(← .gitignore로 커밋 제외)에
+// 저장한다.
 // 사용법: node set_locations.js "<자취방 주소>" "<본가 주소>"
 //
-// 저장 위치를 리포 밖(os.homedir())에 두는 이유: 이 플러그인은 GitHub에 올라가는
-// 리포지토리 안에 있으므로, 주소 같은 개인정보는 절대 리포 안 파일에 쓰면 안 된다.
+// .private/에 저장하는 이유: 이 플러그인은 GitHub에 공개되는 리포지토리 안에
+// 있으므로, 주소 같은 개인정보가 실수로도 커밋/push되면 안 된다.
 
 const fs = require("fs");
 const path = require("path");
-const os = require("os");
 
-const CONFIG_DIR = path.join(os.homedir(), ".claude", "skill-data", "home-eta");
+const REPO_ROOT = path.resolve(__dirname, "..", "..", "..", "..", "..");
+const CONFIG_DIR = path.join(REPO_ROOT, ".private", "home-eta");
 const CONFIG_PATH = path.join(CONFIG_DIR, "locations.json");
 
 function getAppKey() {

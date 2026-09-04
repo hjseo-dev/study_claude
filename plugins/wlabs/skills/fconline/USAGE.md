@@ -40,15 +40,15 @@ Claude Code에서 아래 슬래시 명령을 입력합니다.
 처음 실행하면 저장된 닉네임이 없어서 Claude가 "FC 온라인 게임 닉네임"을
 물어봅니다.
 
-- 닉네임은 이 리포지토리(GitHub에 공개됨) 안에는 저장되지 않습니다.
-- 대신 사용자 홈 디렉터리의 로컬 파일에만 저장됩니다.
+- 닉네임은 커밋되지 않습니다.
+- 리포 루트의 `.private/`(← `.gitignore`로 커밋 제외)에만 저장됩니다.
 
   ```
-  %USERPROFILE%\.claude\skill-data\fconline\profile.json
+  D:\dev\study_claude\.private\fconline\profile.json
   ```
 
-이 파일은 리포 밖에 있어서 git으로 추적/커밋되지 않고, 이 리포를 clone한
-다른 사용자에게도 공유되지 않습니다. 각자 자기 컴퓨터에서 한 번씩 자기
+이 파일은 `.gitignore`에 등록돼 있어서 git으로 추적/커밋되지 않고, 이 리포를
+clone한 다른 사용자에게도 공유되지 않습니다. 각자 자기 컴퓨터에서 한 번씩 자기
 닉네임을 입력해 세팅하게 됩니다.
 
 ## 4. 분석 내용

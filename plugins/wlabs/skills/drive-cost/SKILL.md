@@ -136,11 +136,11 @@ setx OPINET_API_KEY "발급받은_certkey"
 
 ## 저장 위치
 
-차량 정보는 이 리포지토리(GitHub에 공개됨) 안에는 저장하지 않는다. 항상
-사용자 홈 디렉터리(리포 밖)의 다음 경로에만 저장한다:
+차량 정보는 커밋되지 않는다. 리포 루트의 `.private/`(← `.gitignore`로 커밋 제외)에만
+저장한다:
 
 ```
-%USERPROFILE%\.claude\skill-data\drive-cost\car.json
+D:\dev\study_claude\.private\drive-cost\car.json
 ```
 
 ## 참고: searchOption

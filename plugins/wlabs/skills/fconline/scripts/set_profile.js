@@ -2,14 +2,15 @@
 // FC 온라인 닉네임을 넥슨 오픈API로 ouid(계정 식별자)로 변환해서 저장한다.
 // 사용법: node set_profile.js "<닉네임>"
 //
-// 저장 위치를 리포 밖(os.homedir())에 두는 이유: 이 플러그인은 GitHub에 올라가는
-// 리포지토리 안에 있으므로, 게임 닉네임 같은 개인정보는 절대 리포 안 파일에 쓰면 안 된다.
+// 리포 루트의 .private/(← .gitignore로 커밋 제외)에 저장하는 이유: 이 플러그인은
+// GitHub에 공개되는 리포지토리 안에 있으므로, 게임 닉네임 같은 개인정보가 실수로도
+// 커밋/push되면 안 된다.
 
 const fs = require("fs");
 const path = require("path");
-const os = require("os");
 
-const CONFIG_DIR = path.join(os.homedir(), ".claude", "skill-data", "fconline");
+const REPO_ROOT = path.resolve(__dirname, "..", "..", "..", "..", "..");
+const CONFIG_DIR = path.join(REPO_ROOT, ".private", "fconline");
 const CONFIG_PATH = path.join(CONFIG_DIR, "profile.json");
 const API_BASE = "https://open.api.nexon.com/fconline/v1";
 

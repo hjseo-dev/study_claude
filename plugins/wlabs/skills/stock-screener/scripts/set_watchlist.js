@@ -8,9 +8,9 @@
 
 const fs = require("fs");
 const path = require("path");
-const os = require("os");
 
-const DATA_DIR = path.join(os.homedir(), ".claude", "skill-data", "stock-screener");
+const REPO_ROOT = path.resolve(__dirname, "..", "..", "..", "..", "..");
+const DATA_DIR = path.join(REPO_ROOT, ".private", "stock-screener");
 const WATCHLIST_FILE = path.join(DATA_DIR, "watchlist.json");
 
 function loadWatchlist() {

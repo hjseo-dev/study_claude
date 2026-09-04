@@ -10,8 +10,8 @@ Tmap(SK 오픈API)의 미래예측(타임머신) 자동차 길 안내 API로, �
 구간을 **무료도로 우선(톨게이트 회피)** 옵션으로 조회해 지금 바로 / 지금부터
 30분 / 1시간 / 1시간 30분 뒤 각각 출발했을 때의 예상 소요시간을 알려준다.
 
-> 자취방/본가 주소는 이 리포지토리(GitHub에 공개됨) 안 어디에도 저장하지 않는다.
-> 항상 사용자 홈 디렉터리(리포 밖)의 로컬 설정 파일에만 저장한다.
+> 자취방/본가 주소는 커밋되지 않는다. 항상 리포 루트의 `.private/`
+> (← `.gitignore`로 커밋 제외)에만 저장한다.
 
 ## 실행 방법
 
@@ -85,11 +85,10 @@ setx TMAP_API_KEY "발급받은_appKey"
 ## 주소 저장 위치
 
 `set_locations.js`가 주소를 지오코딩(Tmap Full Text Geocoding)해 좌표로 변환한
-뒤, 사용자 홈 디렉터리의 다음 경로에 저장한다 (이 리포지토리 밖이므로 git으로
-추적/커밋되지 않는다):
+뒤, 리포 루트의 `.private/`(← `.gitignore`로 커밋 제외)에 저장한다:
 
 ```
-%USERPROFILE%\.claude\skill-data\home-eta\locations.json
+D:\dev\study_claude\.private\home-eta\locations.json
 ```
 
 ## 참고: searchOption

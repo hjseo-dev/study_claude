@@ -8,9 +8,9 @@
 
 const fs = require("fs");
 const path = require("path");
-const os = require("os");
 
-const CONFIG_DIR = path.join(os.homedir(), ".claude", "skill-data", "drive-cost");
+const REPO_ROOT = path.resolve(__dirname, "..", "..", "..", "..", "..");
+const CONFIG_DIR = path.join(REPO_ROOT, ".private", "drive-cost");
 const CONFIG_PATH = path.join(CONFIG_DIR, "car.json");
 
 function main() {
