@@ -79,6 +79,12 @@ diff를 확인한다.
 - 리뷰 대상이 백엔드 코드이고 `../backend-dev/references/implementation-checklist.md`가
   있으면, 그 체크리스트(트랜잭션 경계·입력검증·에러처리·인증인가·민감정보·
   성능·하위호환)도 correctness 판단 기준에 포함한다.
+- **`.claude/` 아래 추가 참고 문서 확인**: 팀이 직접 넣어둔 설계·분석
+  문서가 있을 수 있다. `Glob`으로 `.claude/**/*.md`(`.claude/skills/`·
+  `.claude/commands/`·`.claude/agents/` 같은 Claude Code 설정용 폴더는
+  제외)를 확인하고, 이번 diff와 관련 있어 보이는 파일만 `Read`해서
+  판단 기준(특히 이 프로젝트만의 규칙·제약)에 반영한다. 없으면 그냥
+  넘어간다.
 
 ## 3. 호출부·사이드이펙트 확보 (diff 밖까지 본다)
 

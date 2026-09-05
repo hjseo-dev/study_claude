@@ -30,6 +30,13 @@ disable-model-invocation: true
    짧게 알린 뒤, `Skill` 도구로 `wlabs:project-struct`를 실행한다. 산출물
    (`docs/STRUCTURE.md` 등)이 만들어지면 그걸 배경지식으로 이어서
    사용한다 — project-struct 산출물을 다시 요약해서 보여줄 필요는 없다.
+4. **`.claude/` 아래 추가 참고 문서 확인**: 이 스킬(또는 project-struct)이
+   만든 문서 외에도, 팀/프로젝트가 직접 넣어둔 분석·설계 문서가
+   `.claude/` 폴더 아래 있을 수 있다. `Glob`으로
+   `.claude/**/*.md`(`.claude/skills/`·`.claude/commands/`·`.claude/agents/`
+   같은 Claude Code 설정용 폴더는 제외)를 확인하고, 이번 주제와 관련
+   있어 보이는 파일만 `Read`해서 배경지식에 포함한다. 없으면 그냥
+   넘어간다(없는 게 정상일 수 있다).
 
 ## 1. 요구사항 파악
 

@@ -54,6 +54,12 @@ disable-model-invocation: true
    부족하면 이번에 수정/생성할 파일과 같은 디렉토리 또는 같은 계층의 기존
    파일 1~2개를 `Read`해서 실제 코드 스타일을 직접 확인하고, 요약 문서보다
    **실제 코드를 우선**한다.
+5. **`.claude/` 아래 추가 참고 문서 확인**: 이 프로젝트의 5w1h/
+   project-struct 산출물 외에도, 팀이 직접 넣어둔 설계·분석 문서가
+   `.claude/` 폴더 아래 있을 수 있다. `Glob`으로 `.claude/**/*.md`
+   (`.claude/skills/`·`.claude/commands/`·`.claude/agents/` 같은 Claude
+   Code 설정용 폴더는 제외)를 확인하고, 이번 구현과 관련 있어 보이는
+   파일만 `Read`해서 구현 계획에 반영한다. 없으면 그냥 넘어간다.
 
 ## 2. 구현 계획 확인
 
