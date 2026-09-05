@@ -53,6 +53,9 @@ git diff <base>...<target> -- <파일>          # 파일별 상세 diff
 - `docs/STRUCTURE.md`의 기술 스택 표만으로 언어가 애매하면 매니페스트 파일
   (`pom.xml`/`build.gradle`, `package.json`, `pyproject.toml`, `go.mod` 등)을
   직접 확인해 보정한다.
+- 이 과정에서 STRUCTURE.md 내용이 실제 코드와 다른 걸 발견하면, 조용히
+  우회만 하지 말고 결과 보고 시 "STRUCTURE.md가 실제와 달라진 것
+  같습니다 — `project-struct`를 다시 실행해서 갱신할까요?"라고 제안한다.
 
 감지된 언어(들)에 맞는 테스트 프레임워크·Mock 라이브러리·파일 배치 관례는
 [references/frameworks.md](references/frameworks.md)를 읽어 따른다. 프로젝트에
