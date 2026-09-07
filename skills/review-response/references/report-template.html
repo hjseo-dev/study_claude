@@ -1,0 +1,203 @@
+<!--
+  review-response 산출물 템플릿.
+  실제 생성 시 이 구조를 참고해서 [대괄호] 부분을 실제 내용으로 채운
+  완전한 HTML 파일을 새로 작성한다. 외부 CDN/폰트 없이 <style> 안에 전부
+  인라인 — file://로 열어도 그대로 보여야 한다. 자바스크립트는 회차
+  펼침/접힘 정도로만 최소로 쓰거나, <details>만으로 처리해도 된다(추천).
+
+  새 회차를 추가하거나 반영 상태가 바뀔 때는 이 파일 전체를 다시 읽고,
+  상단 요약 표를 전체 기준으로 다시 계산한 뒤 통째로 다시 쓴다.
+-->
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>[프로젝트명] 리뷰 대응 문서 — [브랜치명]</title>
+<style>
+  :root {
+    --critical: #d1453b;
+    --medium: #d98c1f;
+    --low: #4a7fc9;
+    --apply: #2f9e44;
+    --pending: #4a7fc9;
+    --skip: #868e96;
+    --confirm: #e8590c;
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --card-bg: #f9fafb;
+  }
+  body {
+    font-family: -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    margin: 0;
+    padding: 24px 32px 64px;
+    line-height: 1.6;
+    font-size: 13px; /* 설명 텍스트를 표/배지와 같은 크기로 통일 */
+  }
+  h1 { font-size: 19px; margin-bottom: 4px; }
+  h2 { font-size: 15px; margin-top: 28px; }
+  .meta { color: var(--muted); font-size: 12px; margin-bottom: 24px; }
+  table { border-collapse: collapse; width: 100%; margin-bottom: 32px; font-size: 13px; }
+  th, td { border: 1px solid var(--border); padding: 6px 10px; text-align: left; vertical-align: top; }
+  th { background: var(--card-bg); }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 12px; color: #fff; white-space: nowrap; }
+  .badge-critical { background: var(--critical); }
+  .badge-medium { background: var(--medium); }
+  .badge-low { background: var(--low); }
+  .badge-apply { background: var(--apply); }
+  .badge-pending { background: var(--pending); }
+  .badge-skip { background: var(--skip); }
+  .badge-confirm { background: var(--confirm); font-weight: bold; }
+  details.round { margin-bottom: 20px; border: 1px solid var(--border); border-radius: 8px; }
+  details.round > summary {
+    cursor: pointer; padding: 10px 16px; font-weight: bold; background: var(--card-bg);
+    border-radius: 8px; font-size: 13px;
+  }
+  .comment-card {
+    border: 1px solid var(--border); border-left: 4px solid var(--border);
+    border-radius: 6px; margin: 12px 16px; padding: 12px 16px; background: #fff;
+    font-size: 13px;
+  }
+  .comment-card.confirm-needed { border-left-color: var(--confirm); background: #fff7ed; }
+  .comment-card.done { border-left-color: var(--apply); }
+  .comment-card .loc { font-family: monospace; font-size: 12px; color: var(--muted); }
+  .comment-card blockquote {
+    margin: 8px 0; padding: 8px 12px; background: var(--card-bg); border-left: 3px solid var(--border);
+    font-size: 13px;
+  }
+  .comment-card p, .comment-card li { font-size: 13px; }
+  .section-label { font-weight: bold; font-size: 12px; color: var(--muted); margin-top: 10px; }
+  .confirm-flag {
+    display: inline-block; margin-bottom: 8px; padding: 4px 10px; border-radius: 4px;
+    background: var(--confirm); color: #fff; font-size: 12px; font-weight: bold;
+  }
+  pre {
+    background: #1e1e1e; color: #e5e7eb; padding: 10px 12px; border-radius: 6px;
+    overflow-x: auto; font-size: 12px; line-height: 1.5; margin: 6px 0;
+  }
+  pre code { font-family: "Consolas", "D2Coding", monospace; }
+  .code-label { display: inline-block; font-size: 11px; color: var(--muted); margin-bottom: 2px; }
+</style>
+</head>
+<body>
+
+<h1>📋 리뷰 대응 문서 — [프로젝트명] / [브랜치명]</h1>
+<div class="meta">최종 갱신: [YYYY-MM-DD HH:mm] · 총 [N]회차 · 전체 [N]건</div>
+
+<h2>요약</h2>
+<table>
+  <thead>
+    <tr><th>회차</th><th>심각도</th><th>위치</th><th>한 줄 요약</th><th>분류</th><th>반영 상태</th></tr>
+  </thead>
+  <tbody>
+    <!-- 예시 행 — 실제 코멘트 수만큼 반복, 최신 회차가 위로 오게 정렬 -->
+    <tr>
+      <td>2차</td>
+      <td><span class="badge badge-critical">Critical</span></td>
+      <td class="loc">[UserService.java:42]</td>
+      <td>[널 체크 누락으로 NPE 가능]</td>
+      <td>반영 필요</td>
+      <td><span class="badge badge-pending">반영 대기</span></td>
+    </tr>
+    <tr>
+      <td>1차</td>
+      <td><span class="badge badge-medium">Medium</span></td>
+      <td class="loc">[OrderController.java:88]</td>
+      <td>[캐시 적용 제안]</td>
+      <td>범위 밖</td>
+      <td><span class="badge badge-skip">반영 안 함</span></td>
+    </tr>
+    <tr>
+      <td>1차</td>
+      <td><span class="badge badge-medium">Medium</span></td>
+      <td class="loc">[PaymentService.java:15]</td>
+      <td>[동기 호출을 비동기로 바꾸라는 제안]</td>
+      <td>확인 필요</td>
+      <td><span class="badge badge-confirm">확인 필요</span></td>
+    </tr>
+    <tr>
+      <td>1차</td>
+      <td><span class="badge badge-low">Low</span></td>
+      <td class="loc">[AuthUtil.java:9]</td>
+      <td>[변수명 개선 제안]</td>
+      <td>적용 추천</td>
+      <td><span class="badge badge-apply">반영 완료</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>회차별 상세</h2>
+
+<!-- 최신 회차를 open, 이전 회차는 접어둔다 -->
+<details class="round" open>
+  <summary>2차 — [YYYY-MM-DD] (신규 N건)</summary>
+
+  <div class="comment-card">
+    <span class="badge badge-critical">Critical</span>
+    <span class="badge badge-pending">반영 대기</span>
+    <span class="loc">[UserService.java:42]</span>
+    <blockquote>[원본 리뷰 코멘트 그대로 인용]</blockquote>
+    <div class="section-label">최신 코드 확인</div>
+    <p>[해당 위치를 Read한 결과 — 여전히 유효한지]</p>
+    <div class="section-label">연관 코드 조사</div>
+    <p>[호출부/유사 패턴 등 Grep으로 확인한 결과]</p>
+    <div class="section-label">판단 및 근거</div>
+    <p>[왜 반영해야 하는지 구체적 이유]</p>
+    <div class="section-label">개선 코드 (이 프로젝트 컨벤션에 맞게 재작성 — 리뷰어 제안을 그대로 베끼지 않음)</div>
+    <span class="code-label">Before</span>
+    <pre><code>[기존 코드]</code></pre>
+    <span class="code-label">After</span>
+    <pre><code>[제안하는 수정 코드 — 3단계 연관 코드 조사 결과까지 반영된 상태]</code></pre>
+  </div>
+
+  <div class="comment-card confirm-needed">
+    <span class="confirm-flag">⚠ 확인 필요</span><br>
+    <span class="badge badge-medium">Medium</span>
+    <span class="loc">[PaymentService.java:15]</span>
+    <blockquote>[원본 리뷰 코멘트]</blockquote>
+    <div class="section-label">판단 및 근거(초안 — 사용자 확인 필요)</div>
+    <p>[리뷰가 틀렸거나 의도된 설계일 수 있다고 의심되는 이유]</p>
+  </div>
+
+  <div class="comment-card done">
+    <span class="badge badge-low">Low</span>
+    <span class="badge badge-apply">반영 완료</span>
+    <span class="loc">[AuthUtil.java:9]</span>
+    <blockquote>[원본 리뷰 코멘트]</blockquote>
+    <div class="section-label">판단 및 근거</div>
+    <p>[적용 추천 사유]</p>
+    <div class="section-label">적용된 코드</div>
+    <pre><code>[실제로 적용한 최종 코드]</code></pre>
+  </div>
+
+  <!--
+    이 회차에서 반영을 다 끝내고 code-review까지 진행했다면, 그 결과를
+    같은 <details class="round"> 안에 이렇게 추가한다(문서 전체 맨 밑이
+    아니라 이 회차 소속으로 — 다음 회차에도 같은 흐름이 반복될 수 있다).
+    새로 발견된 게 없으면 이 블록 대신
+    "✅ code-review 결과 문제 없음" 한 줄만 남긴다.
+  -->
+  <h3>⚠ 이번 반영으로 인한 추가 발견 사항 (code-review 결과)</h3>
+  <div class="comment-card confirm-needed">
+    <span class="badge badge-medium">Medium</span>
+    <span class="loc">[영향받은 파일:줄]</span>
+    <div class="section-label">관련 원본 리뷰 항목</div>
+    <p>[이 문제를 유발한 반영 항목 — 예: "Critical(UserService.java:42) 반영 중 발견"]</p>
+    <div class="section-label">발견 내용</div>
+    <p>[code-review가 찾은 문제 — 구체적 실패 시나리오]</p>
+    <div class="section-label">개선 코드</div>
+    <pre><code>[수정 방향]</code></pre>
+  </div>
+
+</details>
+
+<details class="round">
+  <summary>1차 — [YYYY-MM-DD] (N건)</summary>
+  <!-- 1차 코멘트 카드들 (구조는 위와 동일) -->
+</details>
+
+</body>
+</html>

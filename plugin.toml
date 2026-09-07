@@ -1,6 +1,6 @@
 [plugin]
 name = "wlabs"
-description = "개인/팀용 생활·업무 스킬 모음 (design-base-color, tech-stack, app-init 등)"
+description = "개인/팀용 생활·업무 스킬 모음 (design-base-color, tech-stack, app-init, backend-dev, code-review, review-response 등)"
 version = "1.0.0"
 
 [locations]
