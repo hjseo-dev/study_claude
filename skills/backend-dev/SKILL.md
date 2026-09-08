@@ -1,6 +1,6 @@
 ---
 name: backend-dev
-description: 5w1h 분석 문서를 바탕으로 실제 백엔드 코드를 구현하는 스킬. project-struct가 탐지한 프로젝트 컨벤션(계층 구조, 네이밍, 에러 처리 등)을 그대로 따른다. Triggers on: "이 분석대로 개발해줘", "이 분석대로 구현해줘". 5w1h 분석 문서를 항상 재료로 요구한다(없으면 먼저 만들지 물어본다). 컴파일 확인 후 `/wlabs:code-review`를 자동으로 이어서 실행해 Critical/Medium 발견 사항은 그 자리에서 바로 반영한다(Low는 목록만 보고). 테스트 케이스 생성은 `/wlabs:test-case-creator`의 역할 — 구현 직후 자동 제안은 안 하지만, 사용자가 테스트 실행을 요청했는데 케이스 문서가 없으면 그때는 test-case-creator를 먼저 실행한다.
+description: 5w1h 분석 문서를 바탕으로 실제 백엔드 코드를 구현하는 스킬. project-struct가 탐지한 프로젝트 컨벤션(계층 구조, 네이밍, 에러 처리 등)을 그대로 따른다. Triggers on: "이 분석대로 개발해줘", "이 분석대로 구현해줘". 5w1h 분석 문서를 항상 재료로 요구한다(없으면 먼저 만들지 물어본다). 컴파일 확인 후 `/myskill:code-review`를 자동으로 이어서 실행해 Critical/Medium 발견 사항은 그 자리에서 바로 반영한다(Low는 목록만 보고). 테스트 케이스 생성은 `/myskill:test-case-creator`의 역할 — 구현 직후 자동 제안은 안 하지만, 사용자가 테스트 실행을 요청했는데 케이스 문서가 없으면 그때는 test-case-creator를 먼저 실행한다.
 disable-model-invocation: true
 ---
 
@@ -15,9 +15,9 @@ disable-model-invocation: true
 정리되어 있다 — 구현 전에 반드시 읽는다.
 
 > 프론트엔드 구현이 필요하면 이 스킬이 아니라 별도 프론트엔드 스킬을 쓴다
-> (아직 없으면 사용자에게 필요 여부를 확인한다). 코드 리뷰(`/wlabs:code-review`)는
+> (아직 없으면 사용자에게 필요 여부를 확인한다). 코드 리뷰(`/myskill:code-review`)는
 > 4번(자체 검증)에서 **항상 자동으로** 이어서 실행한다 — 별도로 부를
-> 필요 없다. 테스트 케이스/코드 생성은 `/wlabs:test-case-creator`가
+> 필요 없다. 테스트 케이스/코드 생성은 `/myskill:test-case-creator`가
 > 전담한다 — 이 스킬은 구현이 끝난 뒤 먼저 나서서 제안하지 않지만,
 > 사용자가 테스트 실행을 요청하면 4번에서 필요할 때 그 스킬을 이어서
 > 호출한다.
@@ -32,7 +32,7 @@ disable-model-invocation: true
 3. **못 찾았으면(또는 이번 작업과 안 맞으면)**: 대화 내용만으로 바로
    구현하지 않는다. 대신 `AskUserQuestion`으로 "이번 작업에 대한 5w1h
    분석 문서가 아직 없는 것 같습니다. 지금 먼저 만들까요?"라고 물어본다.
-   - **예**: `../5w1h/SKILL.md`(상대경로: `plugins/wlabs/skills/5w1h/SKILL.md`)를
+   - **예**: `../5w1h/SKILL.md`(상대경로: `skills/5w1h/SKILL.md`)를
      `Read`로 읽고 그 지침을 처음부터 따라 분석 문서를 먼저 만든다. 문서가
      만들어지면 그걸 원본으로 삼아 이어서 진행한다.
    - **아니오**: 사용자가 명시적으로 거부한 경우에만, 지금 대화에서 나온
@@ -47,7 +47,7 @@ disable-model-invocation: true
    패턴/테스트/Git 컨벤션 + 이 프로젝트 특이 규칙)를 구현에 그대로
    적용한다.
 3. **없으면**: 먼저 사용자에게 짧게 알린 뒤 `Skill` 도구로
-   `wlabs:project-struct`를 실행해 산출물을 만들고 이어서 사용한다.
+   `myskill:project-struct`를 실행해 산출물을 만들고 이어서 사용한다.
 4. **언어/프레임워크 버전과 기존 의존성 확인 (항상)**: `docs/STRUCTURE.md`의
    기술 스택 표(버전 포함)를 1차로 참고하되, 실제 매니페스트 파일
    (`pom.xml`/`build.gradle`/`package.json` 등)을 직접 `Read`해서 정확한
@@ -134,7 +134,7 @@ disable-model-invocation: true
    불명확하거나 로직적 판단이 필요한 실패(설계가 잘못됐을 가능성 등)라면
    추측해서 고치지 않고 실패 내용 그대로 사용자에게 보고한다.
 3. **코드 리뷰 및 반영 (항상, 컴파일 통과 후)**: `Skill` 도구로
-   `wlabs:code-review`를 호출해 그 지침의 0~6단계(대상 확정 → 변경 범위
+   `myskill:code-review`를 호출해 그 지침의 0~6단계(대상 확정 → 변경 범위
    확보 → 프로젝트 컨텍스트 → 호출부·사이드이펙트 확보 → 1차 발견 →
    2차 검증 및 심각도 분류 → 보고)를 그대로 따라, base 브랜치 대비 지금
    브랜치에서 만든 전체 변경사항(커밋 여부와 무관 — 현재 브랜치를
@@ -160,7 +160,7 @@ disable-model-invocation: true
       착각하지 않는다.
       - **최신이면** 그 문서/코드를 참고해서 관련 테스트를 실행한다.
       - **stale이면** 3번(재생성)으로 진행한다.
-   3. **없거나 stale이면** `Skill` 도구로 `wlabs:test-case-creator`를
+   3. **없거나 stale이면** `Skill` 도구로 `myskill:test-case-creator`를
       실행해서 케이스와 테스트 코드를 새로 만들고(그 스킬의 지침을 그대로
       따름), 그 다음 이어서 테스트를 실행한다.
 5. **의미 있는 테스트 인프라 자체가 없는 프로젝트라면** (예: 기본 컨텍스트
@@ -181,7 +181,7 @@ disable-model-invocation: true
 - **4-3번(코드 리뷰)에서 반영한 Critical/Medium 항목**을 무엇을 왜
   고쳤는지와 함께 정리하고, **반영하지 않은 Low 항목**은 목록으로
   보여준 뒤 지금 반영할지 `AskUserQuestion`으로 물어본다.
-- 이번 변경에 대한 테스트 코드가 필요하면 `/wlabs:test-case-creator`를
+- 이번 변경에 대한 테스트 코드가 필요하면 `/myskill:test-case-creator`를
   쓸 수 있다고 **언급만** 한다 — 자동으로 이어서 실행하지 않는다(4번에서
   사용자가 테스트를 요청한 경우는 예외).
 - **새 API 엔드포인트를 추가/변경했다면**, `docs/API.md`가 있는 경우

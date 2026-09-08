@@ -74,7 +74,7 @@ diff를 확인한다.
 `docs/STRUCTURE.md`가 있는지 확인한다.
 
 - **있으면** 그 문서(및 `docs/API.md`)로 기술 스택과 컨벤션을 파악한다.
-- **없으면** 먼저 `Skill` 도구로 `wlabs:project-struct`를 실행해 생성한 뒤
+- **없으면** 먼저 `Skill` 도구로 `myskill:project-struct`를 실행해 생성한 뒤
   이어서 진행한다.
 - **언어/프레임워크 버전과 기존 의존성 확인 (항상)**: `docs/STRUCTURE.md`의
   기술 스택 표를 1차로 참고하되, 실제 매니페스트 파일(`pom.xml`/

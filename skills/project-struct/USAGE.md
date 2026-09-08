@@ -14,7 +14,7 @@
 명시적으로 부르고 싶으면:
 
 ```
-/wlabs:project-struct
+/myskill:project-struct
 ```
 
 ## 2. 사용 흐름

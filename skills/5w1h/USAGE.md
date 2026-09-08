@@ -12,7 +12,7 @@
 명시적으로 불러야 합니다:
 
 ```
-/wlabs:5w1h
+/myskill:5w1h
 ```
 
 ## 2. 사용 흐름
@@ -20,7 +20,7 @@
 1. **배경지식 확보**: 분석 대상 프로젝트에 `docs/STRUCTURE.md`가 있는지
    확인합니다. 있으면 그 문서(+ 관련 있으면 `docs/API.md`·
    `docs/EXTERNAL-SYSTEMS.md`)를 읽어 배경지식으로 삼습니다. 없으면
-   먼저 `/wlabs:project-struct`를 실행해 산출물을 만든 뒤 이어서
+   먼저 `/myskill:project-struct`를 실행해 산출물을 만든 뒤 이어서
    진행합니다. `.claude/` 폴더 아래 팀이 직접 넣어둔 추가 분석 문서가
    있으면(설정용 폴더는 제외) 그것도 함께 확인합니다.
 2. 무엇을 분석할지(요구사항/작업 내용)를 대화로 파악합니다. 애매하면
@@ -50,12 +50,12 @@
 ## 4. 회의/발표 대본 검토 (딸린 스킬)
 
 `5w1h`로 만든 분석 문서를 회의에서 말로 전달할 대본으로 다듬고 싶으면
-`/wlabs:meeting-speech-review`를 씁니다. `docs/5w1h/`에 같은 주제의
+`/myskill:meeting-speech-review`를 씁니다. `docs/5w1h/`에 같은 주제의
 분석 문서가 있으면 참고 자료로 대조해줍니다.
 
 **항상 명시적으로 호출해야 합니다** — `5w1h`가 문서를 저장한 뒤 "발표
 대본도 봐드릴까요?"처럼 자동으로 제안하지 않습니다. 발표 대본 검토가
-필요할 때 직접 `/wlabs:meeting-speech-review`를 호출하세요.
+필요할 때 직접 `/myskill:meeting-speech-review`를 호출하세요.
 
 ## 5. 자주 겪는 문제
 
@@ -65,7 +65,7 @@
   `docs/STRUCTURE.md`를 재사용하므로 빨라집니다.
 - **project-struct 산출물이 오래돼서 실제 코드와 다름**: 이 스킬은
   `docs/STRUCTURE.md` 존재 여부만 확인하고 최신인지는 검증하지 않습니다.
-  코드가 많이 바뀐 뒤라면 `/wlabs:project-struct`를 먼저 다시 실행해
+  코드가 많이 바뀐 뒤라면 `/myskill:project-struct`를 먼저 다시 실행해
   갱신해달라고 요청하세요.
 
 ## 6. 개선/확장 아이디어

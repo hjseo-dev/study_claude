@@ -19,7 +19,7 @@
 명시적으로 불러야 합니다:
 
 ```
-/wlabs:code-review [브랜치명]
+/myskill:code-review [브랜치명]
 ```
 
 `backend-dev`는 자체 검증 단계에서 이 스킬을 **항상 자동으로**
@@ -79,13 +79,13 @@
   실제 상황을 다시 확인합니다.
 - **backend-dev가 부를 때 "반영할까요?" 질문이 안 나옴**: 의도된
   동작입니다 — 그때는 Critical/Medium을 자동으로 바로 반영하고 Low만
-  목록으로 남깁니다. 독립적으로(`/wlabs:code-review` 직접 호출) 실행하면
+  목록으로 남깁니다. 독립적으로(`/myskill:code-review` 직접 호출) 실행하면
   평소처럼 반영 여부를 먼저 물어봅니다.
 - **`docs/STRUCTURE.md`가 없어서 project-struct부터 돎**: 처음 한 번만
   겪는 비용이고, 이후로는 재사용됩니다.
 - **테스트 코드가 없다고 나왔는데 안 만들어줌**: 의도된 동작입니다 —
   이 스킬은 "테스트가 없다"는 사실만 지적하고, 실제 테스트 작성은
-  `/wlabs:test-case-creator`가 담당합니다.
+  `/myskill:test-case-creator`가 담당합니다.
 - **사소해 보이는 Low 항목까지 다 나옴**: 의도된 동작입니다 — 내장
   리뷰와 달리 이 스킬은 검증을 통과한 건 심각도와 무관하게 다
   보여줍니다. 심각도로 정렬돼 있으니 Critical/Medium만 먼저 보고 Low는

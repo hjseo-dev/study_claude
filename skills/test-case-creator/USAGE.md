@@ -8,14 +8,14 @@ git 브랜치가 base 브랜치(master/main) 대비 만든 **모든 변경사항
 
 ## 1. 사전 준비
 
-없습니다. 다만 정확도를 높이려면 미리 `/wlabs:project-struct`를 한 번
+없습니다. 다만 정확도를 높이려면 미리 `/myskill:project-struct`를 한 번
 실행해서 `docs/STRUCTURE.md`를 만들어두면 좋습니다(없으면 이 스킬이 자동으로
 먼저 실행합니다).
 
 ## 2. 호출 방법
 
 ```
-/wlabs:test-case-creator <브랜치명>
+/myskill:test-case-creator <브랜치명>
 ```
 
 - `<브랜치명>`을 생략하면 현재 체크아웃돼 있는 브랜치를 대상으로 합니다.
@@ -27,7 +27,7 @@ git 브랜치가 base 브랜치(master/main) 대비 만든 **모든 변경사항
 예시:
 
 ```
-/wlabs:test-case-creator feature/order-refund
+/myskill:test-case-creator feature/order-refund
 ```
 
 → `master`(또는 `main`) 대비 `feature/order-refund` 브랜치의 모든 커밋 누적
@@ -71,7 +71,7 @@ git 브랜치가 base 브랜치(master/main) 대비 만든 **모든 변경사항
 - **"base 브랜치를 찾을 수 없습니다"**: `main`/`master` 둘 다 없는 저장소입니다
   (예: `develop`을 기본 브랜치로 씀). 물어보면 실제 base 브랜치명을 알려주세요.
 - **테스트 프레임워크가 예상과 다르게 감지됨**: `docs/STRUCTURE.md`가 오래됐거나
-  프로젝트에 여러 언어가 섞여 있을 수 있습니다. `/wlabs:project-struct`를 다시
+  프로젝트에 여러 언어가 섞여 있을 수 있습니다. `/myskill:project-struct`를 다시
   실행해 문서를 갱신한 뒤 재시도하세요.
 - **일부 테스트에 "로컬 전용" 표시가 붙음**: 실제 DB/사설망/로컬 환경변수처럼
   Mock으로 대체할 수 없는 의존성이 있다는 뜻입니다. 억지로 Mock 처리하지 않고

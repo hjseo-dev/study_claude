@@ -1,6 +1,6 @@
 [plugin]
-name = "wlabs"
-description = "개인/팀용 생활·업무 스킬 모음 (design-base-color, tech-stack, app-init, backend-dev, code-review, review-response 등)"
+name = "myskill"
+description = "회사(백엔드 개발) 워크플로우 스킬 모음 (project-struct, 5w1h, backend-dev, code-review, review-response, test-case-creator, meeting-speech-review, readme-creator, skill-creator)"
 version = "1.0.0"
 
 [locations]

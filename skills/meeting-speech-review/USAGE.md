@@ -15,7 +15,7 @@
 명시적으로 불러야 합니다:
 
 ```
-/wlabs:meeting-speech-review
+/myskill:meeting-speech-review
 ```
 
 호출한 뒤 대화로 발표 대본 텍스트를 붙여넣으면 됩니다.
@@ -54,7 +54,7 @@
   기준으로 할지 직접 알려주면 그걸 씁니다.
 - **자동으로 실행되길 기대했는데 안 됨**: 의도된 동작입니다. `5w1h`나
   다른 스킬이 끝났다고 자동으로 제안하지 않으므로, 매번
-  `/wlabs:meeting-speech-review`를 직접 호출해야 합니다.
+  `/myskill:meeting-speech-review`를 직접 호출해야 합니다.
 
 ## 5. 개선/확장 아이디어
 

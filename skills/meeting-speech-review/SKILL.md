@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # 회의 발표 대본 검토
 
-`5w1h` 스킬에 딸린 스킬이지만, 항상 `/wlabs:meeting-speech-review`로 **직접
+`5w1h` 스킬에 딸린 스킬이지만, 항상 `/myskill:meeting-speech-review`로 **직접
 호출됐을 때만** 실행한다 — `5w1h`가 문서를 저장한 뒤 이 스킬을 자동으로
 이어서 제안하지 않는다.
 

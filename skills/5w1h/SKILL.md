@@ -16,7 +16,7 @@ disable-model-invocation: true
 있다 — 작성 전에 반드시 읽는다.
 
 > 이 분석 내용을 회의/발표에서 말로 전달할 대본으로 다듬고 싶으면
-> `/wlabs:meeting-speech-review`를 쓴다. 단, 이 스킬이 자동으로 제안하지는
+> `/myskill:meeting-speech-review`를 쓴다. 단, 이 스킬이 자동으로 제안하지는
 > 않는다 — 사용자가 명시적으로 호출했을 때만 실행되는 별개 스킬이다.
 
 ## 0. project-struct 배경지식 확보
@@ -27,7 +27,7 @@ disable-model-invocation: true
    배경지식으로 삼는다.
 3. **없으면**: 먼저 사용자에게 "이 프로젝트는 아직 project-struct 분석이
    없어서 먼저 전체 구조부터 분석하고 이어서 5W1H 분석을 진행할게요"라고
-   짧게 알린 뒤, `Skill` 도구로 `wlabs:project-struct`를 실행한다. 산출물
+   짧게 알린 뒤, `Skill` 도구로 `myskill:project-struct`를 실행한다. 산출물
    (`docs/STRUCTURE.md` 등)이 만들어지면 그걸 배경지식으로 이어서
    사용한다 — project-struct 산출물을 다시 요약해서 보여줄 필요는 없다.
 4. **`.claude/` 아래 추가 참고 문서 확인**: 이 스킬(또는 project-struct)이

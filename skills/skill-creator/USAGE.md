@@ -10,7 +10,7 @@
 Claude Code에서 아래 슬래시 명령을 입력합니다.
 
 ```
-/wlabs:skill-creator
+/myskill:skill-creator
 ```
 
 이 스킬은 "스킬 만들어줘" 같은 말을 해도 자동으로는 실행되지 않습니다
