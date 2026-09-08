@@ -18,6 +18,7 @@
 | `5w1h` | 기존 프로젝트/기능을 추가개발·유지보수·버그수정·접근방법결정·고려사항 관점으로 분석 | `project-struct` 없으면 자동 실행 → 산출물은 `backend-dev`의 필수 입력이 됨 |
 | `backend-dev` | 5w1h 분석 문서 기반으로 실제 백엔드 코드 구현 | `5w1h` 문서 필수(없으면 먼저 실행할지 물어봄) · `project-struct` 없으면 자동 실행 · `code-review` 항상 자동 호출(Critical/Medium 자동 반영) · `test-case-creator`는 테스트 요청 시에만 호출 |
 | `code-review` | git diff(현재 브랜치=미커밋 포함) 리뷰, Critical/Medium/Low 분류 + 호출부·사이드이펙트 검증 | `project-struct` 없으면 자동 실행 · `backend-dev`가 자동 호출하면 반영까지 자동(Critical/Medium) · 독립 호출 시엔 항상 확인 후 반영 |
+| `review-response` | 외부(회사 AI 리뷰어 등) 코드리뷰 코멘트의 타당성을 판단하고 반영 여부를 HTML 문서로 기록 | 반영 완료로 보이면 `code-review` 실행 여부를 먼저 물어봄 |
 | `test-case-creator` | git 브랜치 diff 기반 4관점(기능/보안성/안정성/회귀) 테스트케이스 및 코드 생성 | `project-struct` 없으면 자동 실행 · `backend-dev`가 테스트 요청 시에만 호출 · 독립 호출도 가능 |
 | `meeting-speech-review` | 회의/발표 대본을 5W1H 완결성 + 구어체 어순으로 검토 | `5w1h` 문서 있으면 참고(자동 연결은 없음 — `project-struct`도 자동 실행하지 않고, 항상 직접 호출해야 함) |
 | `readme-creator` | 프로젝트 스캔 기반으로 README.md를 6개 체크리스트 항목으로 작성/갱신 | 다른 스킬과 실행 연결 없음 |
