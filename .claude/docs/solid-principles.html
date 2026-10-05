@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>SOLID 원칙 정리</title>
+<style>
+  body { font-family: -apple-system, "Malgun Gothic", sans-serif; max-width: 760px; margin: 40px auto; padding: 0 20px; line-height: 1.7; color: #222; }
+  h1 { border-bottom: 3px solid #333; padding-bottom: 10px; }
+  h2 { margin-top: 48px; padding: 8px 12px; background: #f0f0f0; border-left: 5px solid #555; }
+  h3 { margin-top: 24px; color: #444; }
+  .def { background: #eef6ff; border-left: 4px solid #3b82f6; padding: 10px 14px; margin: 12px 0; }
+  .why { background: #fff8e1; border-left: 4px solid #f59e0b; padding: 10px 14px; margin: 12px 0; }
+  .bad { color: #b91c1c; font-weight: bold; }
+  .good { color: #15803d; font-weight: bold; }
+  code { background: #f5f5f5; padding: 2px 6px; border-radius: 4px; font-size: 0.92em; }
+
+  /* IntelliJ IDEA Darcula(다크) 테마 느낌의 코드 블록 */
+  .code-label { font-size: 0.78em; color: #888; margin: 18px 0 2px; font-weight: bold; letter-spacing: 0.03em; }
+  .idea-code { background: #2B2B2B; border: 1px solid #1E1E1E; border-radius: 3px; margin: 4px 0 16px; overflow-x: auto;
+               font-family: "JetBrains Mono", "Consolas", "Courier New", monospace; font-size: 13px; line-height: 1.6; }
+  .idea-code pre { margin: 0; padding: 12px 16px; background: transparent; color: #A9B7C6; }
+  .idea-code .kw  { color: #CC7832; }                       /* 키워드: public, class, new, return 등 */
+  .idea-code .an  { color: #BBB529; }                       /* 애너테이션: @Component 등 */
+  .idea-code .ty  { color: #A9B7C6; }                       /* 타입/클래스명 */
+  .idea-code .str { color: #6A8759; }                       /* 문자열 리터럴 */
+  .idea-code .nm  { color: #6897BB; }                       /* 숫자 */
+  .idea-code .cm  { color: #808080; font-style: italic; }   /* 주석 */
+  .idea-code .fn  { color: #FFC66D; }                       /* 메서드명 */
+  table { border-collapse: collapse; width: 100%; margin: 16px 0; }
+  th, td { border: 1px solid #ddd; padding: 8px 10px; text-align: left; }
+  th { background: #f5f5f5; }
+  .tag { display: inline-block; background: #333; color: #fff; border-radius: 4px; padding: 2px 8px; font-size: 0.85em; margin-right: 6px; }
+</style>
+</head>
+<body>
+
+<h1>SOLID 원칙</h1>
+<p>객체지향 설계에서 "변경에 강한 구조"를 만들기 위한 5가지 원칙. 전부 결국 하나의 질문으로 귀결됨: <b>"이 코드를 고쳐야 할 때, 얼마나 적은 범위만 건드리면 되는가?"</b></p>
+
+<h2><span class="tag">S</span>단일 책임 원칙 (Single Responsibility Principle)</h2>
+<div class="def"><b>정의</b>: 클래스(또는 모듈)는 <b>단 하나의 책임</b>만 가져야 한다. 더 정확히는 — <b>"하나의 변경 이유"</b>만 가져야 한다.</div>
+
+<p>여기서 "책임"을 "기능 하나"로 오해하기 쉬운데, 정확한 기준은 <b>"누구 때문에, 왜 바뀌는가"</b>임.</p>
+
+<h3>먼저 오해 하나 짚기: "컨트롤러에 엔드포인트가 여러 개면 SRP 위반?"</h3>
+<p><b>아니다.</b> <code>UserController</code>가 <code>login</code>, <code>register</code>, <code>updateProfile</code>, <code>withdraw</code> 같은 여러 엔드포인트를 갖는 건 — 전부 "유저 관리"라는 <b>하나의 응집된 도메인 책임</b>이라서 정상임. SRP는 "메서드가 몇 개냐"가 아니라 "<b>변경 이유가 몇 개냐</b>"를 보는 원칙.</p>
+
+<div class="code-label">OK — 여러 엔드포인트, 근데 하나의 책임(유저 관리)</div>
+<div class="idea-code"><pre><span class="an">@RestController</span>
+<span class="kw">public class</span> <span class="ty">UserController</span> {
+
+    <span class="an">@PostMapping</span>(<span class="str">"/login"</span>)
+    <span class="kw">public</span> ResponseEntity&lt;?&gt; <span class="fn">login</span>(...) { ... }
+
+    <span class="an">@PostMapping</span>(<span class="str">"/register"</span>)
+    <span class="kw">public</span> ResponseEntity&lt;?&gt; <span class="fn">register</span>(RegisterRequest request) {
+        <span class="kw">return</span> userService.register(request);
+    }
+
+    <span class="an">@DeleteMapping</span>(<span class="str">"/withdraw"</span>)
+    <span class="kw">public</span> ResponseEntity&lt;?&gt; <span class="fn">withdraw</span>(...) { ... }
+}</pre></div>
+
+<h3>진짜 위반 지점: <code>register()</code> 메서드 "안"</h3>
+<p>진짜 문제는 클래스 레벨이 아니라, <code>register()</code> <b>메서드 하나 안에</b> 서로 상관없는 4가지 기술적 책임이 뭉쳐있다는 것:</p>
+<ul>
+  <li>타팀 API 호출 로직</li>
+  <li>우리 DB insert 로직</li>
+  <li>AD insert 로직</li>
+  <li>메일 발송 로직</li>
+</ul>
+<p>이 메서드는 <b>네 가지 다른 이유</b>로 바뀜: 타팀이 API 스펙을 바꾸면 바뀌고, DB 스키마가 바뀌면 바뀌고, AD 시스템이 바뀌면 바뀌고, 메일 서비스가 바뀌면 바뀜. <span class="bad">책임이 4개</span>인 것 — "엔드포인트가 여러 개"인 것과는 완전히 다른 층위의 문제.</p>
+
+<div class="code-label">BAD — register() 메서드 "안"에 책임 4개</div>
+<div class="idea-code"><pre><span class="an">@Service</span>
+<span class="kw">public class</span> <span class="ty">UserService</span> {
+
+    <span class="kw">public void</span> <span class="fn">register</span>(RegisterRequest request) {
+        partnerApiClient.register(request);   <span class="cm">// 1. 타팀 API 호출</span>
+        userRepository.save(request);         <span class="cm">// 2. 우리 DB insert</span>
+        adRepository.insert(request);         <span class="cm">// 3. AD insert</span>
+        smtpClient.sendMail(request);         <span class="cm">// 4. 메일 발송</span>
+    }
+
+    <span class="kw">public void</span> <span class="fn">login</span>(...) { ... }
+    <span class="kw">public void</span> <span class="fn">withdraw</span>(...) { ... }
+}</pre></div>
+
+<h3>원칙 적용</h3>
+<p><code>UserController</code>/<code>UserService</code>는 그대로 두고, <b><code>register()</code> 메서드 내부의 4가지 기술적 책임만</b> 어댑터로 쪼갬. <code>UserService.register()</code>는 이제 오케스트레이터 역할만 하고, 각 책임은 별도 클래스에 위임됨.</p>
+
+<div class="code-label">GOOD — 책임별로 분리</div>
+<div class="idea-code"><pre><span class="an">@Component</span>
+<span class="kw">public class</span> <span class="ty">PartnerApiAdapter</span> {
+    <span class="kw">public void</span> <span class="fn">register</span>(RegisterRequest request) { ... }
+}
+
+<span class="an">@Component</span>
+<span class="kw">public class</span> <span class="ty">UserDbAdapter</span> {
+    <span class="kw">public void</span> <span class="fn">insert</span>(RegisterRequest request) { ... }
+}</pre></div>
+
+<div class="why"><b>왜 중요한가</b>: 책임이 섞여 있으면, 한 가지 이유로 수정할 때 다른 책임까지 같이 열어보게 되어 — 상관없는 로직까지 다시 테스트/리뷰해야 하고, 실수로 건드릴 위험이 생김. (이전에 다룬 레거시 가입 서비스의 문제와 동일한 원인.)</div>
+
+<h2><span class="tag">O</span>개방-폐쇄 원칙 (Open-Closed Principle)</h2>
+<div class="def"><b>정의</b>: 기능을 <b>확장</b>하는 데는 열려 있어야 하고, 기존 <b>코드 수정</b>에는 닫혀 있어야 한다.</div>
+
+<p>이미 결제수단 추가 예시로 다룬 원칙. 핵심 요약:</p>
+<table>
+  <tr><th>상황</th><th>기존 구조 (if-else)</th><th>어댑터 패턴 적용</th></tr>
+  <tr><td>새 결제수단 추가</td><td>기존 메서드를 열어서 분기 추가</td><td>새 클래스 파일 하나 추가</td></tr>
+  <tr><td>기존 코드 영향</td><td class="bad">있음 (다시 테스트 필요)</td><td class="good">없음 (건드리지 않음)</td></tr>
+</table>
+
+<div class="code-label">BAD — 추가할수록 분기가 쌓임</div>
+<div class="idea-code"><pre><span class="kw">if</span> (type.equals(<span class="str">"CARD"</span>)) {
+    cardPaymentApi.charge(amount);
+} <span class="kw">else if</span> (type.equals(<span class="str">"KAKAO"</span>)) {
+    kakaoPayClient.pay(userId, amount);
+} <span class="kw">else if</span> (type.equals(<span class="str">"TOSS"</span>)) {   <span class="cm">// 추가될 때마다 여기가 늘어남</span>
+    tossPayClient.pay(userId, amount);
+}</pre></div>
+
+<div class="code-label">GOOD — 새 파일만 추가, 기존 코드 無변경</div>
+<div class="idea-code"><pre><span class="an">@Component</span>
+<span class="kw">public class</span> <span class="ty">TossPayAdapter</span> <span class="kw">implements</span> <span class="ty">PaymentAdapter</span> {
+
+    <span class="kw">public void</span> <span class="fn">pay</span>(String userId, <span class="kw">long</span> amount) {
+        tossPayClient.pay(userId, amount);
+    }
+}</pre></div>
+
+<div class="why"><b>왜 중요한가</b>: "확장"과 "수정"을 분리하면, 새 기능을 추가해도 기존에 잘 동작하던 코드가 깨질 위험이 사라짐.</div>
+
+<h2><span class="tag">L</span>리스코프 치환 원칙 (Liskov Substitution Principle)</h2>
+<div class="def"><b>정의</b>: 상위 타입(인터페이스/부모 클래스)을 쓰는 코드는, 그 자리에 <b>어떤 하위 타입(구현체)을 넣어도</b> 동일하게 동작해야 한다.</div>
+
+<p>즉, "이 인터페이스의 구현체면 서로 바꿔 끼워도 안전하다"는 <b>신뢰</b>가 깨지면 안 됨.</p>
+
+<h3>위반 사례</h3>
+<p><code>PaymentAdapter</code> 인터페이스의 <code>pay(userId, amount)</code>를 구현하는 어댑터가 3개 있다고 하자. 이 중 하나(예: <code>CardPaymentAdapter</code>)가 다음과 같이 동작한다면:</p>
+<ul>
+  <li>다른 어댑터들은 <code>amount</code>가 0이어도 정상 처리하는데, 이것만 <b>예외를 던짐</b></li>
+  <li>다른 어댑터들은 실패 시 <code>false</code>를 리턴하는데, 이것만 <b>런타임 예외</b>를 던짐</li>
+</ul>
+<p>→ 호출하는 쪽(오케스트레이터)이 "어떤 구현체가 들어올지 모른 채" 코드를 쓸 수 없게 됨. 결국 호출부에 <span class="bad">"이게 카드결제면 예외처리 다르게"</span>라는 분기가 다시 생김 — OCP가 깨지는 결과로 이어짐.</p>
+
+<div class="code-label">BAD — 이 구현체만 다르게 행동함</div>
+<div class="idea-code"><pre><span class="kw">public class</span> <span class="ty">CardPaymentAdapter</span> <span class="kw">implements</span> <span class="ty">PaymentAdapter</span> {
+
+    <span class="kw">public void</span> <span class="fn">pay</span>(String userId, <span class="kw">long</span> amount) {
+        <span class="kw">if</span> (amount == <span class="nm">0</span>) {
+            <span class="kw">throw new</span> <span class="ty">IllegalArgumentException</span>(<span class="str">"0원 결제 불가"</span>);
+            <span class="cm">// 다른 어댑터(Kakao, Toss)는 0원이면 그냥 false 리턴하고 끝남</span>
+        }
+        cardPaymentApi.charge(amount);
+    }
+}</pre></div>
+
+<h3>원칙 적용</h3>
+<p>인터페이스가 약속한 <b>동작 규약(contract)</b>을 모든 구현체가 동일하게 지켜야 함: 같은 상황엔 같은 방식으로 반응(성공 시 리턴 형태, 실패 시 처리 방식 등)해야 함.</p>
+
+<div class="why"><b>왜 중요한가</b>: 어댑터 패턴, 전략 패턴처럼 "인터페이스로 구현체를 교체 가능하게 만드는" 모든 설계가 이 원칙 위에서 성립함. LSP가 깨지면 "교체 가능하다"는 전제 자체가 무너져서, 어댑터를 나눈 의미가 없어짐.</div>
+
+<h2><span class="tag">I</span>인터페이스 분리 원칙 (Interface Segregation Principle)</h2>
+<div class="def"><b>정의</b>: 클라이언트는 자신이 <b>사용하지 않는 메서드</b>에 의존하도록 강제되어서는 안 된다. — 즉, 거대한 인터페이스 하나보다 <b>작고 역할이 명확한 인터페이스 여러 개</b>가 낫다.</div>
+
+<h3>위반 사례</h3>
+<p><code>PaymentAdapter</code> 인터페이스에 다음 메서드가 전부 들어있다면:</p>
+<ul>
+  <li><code>pay(userId, amount)</code></li>
+  <li><code>refund(paymentId)</code></li>
+  <li><code>cancelSubscription(userId)</code></li>
+</ul>
+<p>그런데 카드결제는 구독 취소 기능이 없음. 그래도 인터페이스를 구현하려면 <code>cancelSubscription()</code>을 억지로 구현해야 함 (빈 메서드거나 예외를 던지는 식으로). <span class="bad">쓰지도 않을 메서드를 억지로 책임지게 됨.</span></p>
+
+<div class="code-label">BAD — 하나의 뚱뚱한 인터페이스</div>
+<div class="idea-code"><pre><span class="kw">public interface</span> <span class="ty">PaymentAdapter</span> {
+    <span class="kw">void</span> <span class="fn">pay</span>(String userId, <span class="kw">long</span> amount);
+    <span class="kw">void</span> <span class="fn">refund</span>(String paymentId);
+    <span class="kw">void</span> <span class="fn">cancelSubscription</span>(String userId);   <span class="cm">// 카드결제엔 불필요한 메서드</span>
+}</pre></div>
+
+<h3>원칙 적용</h3>
+<p>인터페이스를 역할 단위로 쪼갬: <code>PaymentAdapter</code>(결제), <code>RefundableAdapter</code>(환불 가능한 것만), <code>SubscriptionAdapter</code>(구독 기능이 있는 것만). 필요한 것만 구현하면 됨.</p>
+
+<div class="code-label">GOOD — 역할별로 작게 분리</div>
+<div class="idea-code"><pre><span class="kw">public interface</span> <span class="ty">PaymentAdapter</span> {
+    <span class="kw">void</span> <span class="fn">pay</span>(String userId, <span class="kw">long</span> amount);
+}
+
+<span class="kw">public interface</span> <span class="ty">SubscriptionAdapter</span> {
+    <span class="kw">void</span> <span class="fn">cancelSubscription</span>(String userId);
+}
+
+<span class="cm">// 카드결제 어댑터는 PaymentAdapter만 구현하면 됨</span>
+<span class="kw">public class</span> <span class="ty">CardPaymentAdapter</span> <span class="kw">implements</span> <span class="ty">PaymentAdapter</span> { ... }</pre></div>
+
+<div class="why"><b>왜 중요한가</b>: 인터페이스가 비대해지면, 그 인터페이스를 구현하는 모든 클래스가 "안 쓰는 기능"까지 떠안게 되고, 인터페이스가 바뀔 때(메서드 추가 등) 관련 없는 구현체까지 전부 영향을 받음.</div>
+
+<h2><span class="tag">D</span>의존 역전 원칙 (Dependency Inversion Principle)</h2>
+<div class="def"><b>정의</b>: 상위 모듈(비즈니스 로직)은 하위 모듈(구체적인 구현)에 직접 의존하면 안 되고, <b>둘 다 추상화(인터페이스)에 의존</b>해야 한다.</div>
+
+<p>이미 실습한 내용과 정확히 같은 원칙임:</p>
+<table>
+  <tr><th></th><th class="bad">위반 (직접 의존)</th><th class="good">준수 (추상화에 의존)</th></tr>
+  <tr><td>OrderOrchestrator가 아는 것</td><td><code>TossPayClient</code> (구체 클래스)</td><td><code>PaymentAdapter</code> (인터페이스)</td></tr>
+  <tr><td>결제수단 교체 시</td><td>Orchestrator 코드 수정 필요</td><td>Orchestrator는 그대로, 어댑터만 교체</td></tr>
+</table>
+
+<div class="code-label">BAD — 구체 클래스에 직접 의존</div>
+<div class="idea-code"><pre><span class="an">@Service</span>
+<span class="kw">public class</span> <span class="ty">OrderOrchestrator</span> {
+    <span class="kw">private final</span> <span class="ty">TossPayClient</span> tossPayClient;   <span class="cm">// 토스 SDK를 직접 알고 있음</span>
+}</pre></div>
+
+<div class="code-label">GOOD — 추상화(인터페이스)에 의존</div>
+<div class="idea-code"><pre><span class="an">@Service</span>
+<span class="kw">public class</span> <span class="ty">OrderOrchestrator</span> {
+
+    <span class="kw">private final</span> <span class="ty">PaymentAdapter</span> paymentAdapter;   <span class="cm">// 인터페이스만 알고 있음</span>
+
+    <span class="kw">public</span> <span class="fn">OrderOrchestrator</span>(<span class="ty">PaymentAdapter</span> paymentAdapter) {
+        <span class="kw">this</span>.paymentAdapter = paymentAdapter;
+    }
+}</pre></div>
+
+<p>"역전(Inversion)"이라는 이름이 붙은 이유: 전통적으로는 상위 로직이 하위 구현을 직접 가져다 쓰는 방향인데, 이걸 "상위도 하위도 똑같이 인터페이스를 바라보는" 방향으로 뒤집기 때문.</p>
+
+<div class="why"><b>왜 중요한가</b>: Spring의 DI 컨테이너/Bean이 존재하는 이유가 사실 이 원칙을 실현하기 위한 도구임. <code>@Autowired</code>/생성자 주입으로 구체 클래스 대신 인터페이스를 주입받는 것 자체가 DIP를 지키는 행위.</div>
+
+<h2>5개를 묶어서 보면</h2>
+<table>
+  <tr><th>원칙</th><th>한 줄 핵심</th><th>지금까지 배운 것과의 연결</th></tr>
+  <tr><td>SRP</td><td>한 클래스는 한 가지 이유로만 바뀐다</td><td>가입 서비스를 어댑터 4개로 쪼갠 이유</td></tr>
+  <tr><td>OCP</td><td>확장엔 열려있고 수정엔 닫혀있다</td><td>결제수단 추가 = 새 파일만 추가</td></tr>
+  <tr><td>LSP</td><td>구현체는 서로 바꿔 끼워도 안전해야 한다</td><td>어댑터들이 같은 규약을 지켜야 하는 이유</td></tr>
+  <tr><td>ISP</td><td>안 쓰는 메서드까지 강제로 구현하게 하지 말 것</td><td>인터페이스를 역할별로 작게 쪼개는 이유</td></tr>
+  <tr><td>DIP</td><td>구체 클래스 대신 인터페이스에 의존</td><td>Spring Bean/DI가 존재하는 근본 이유</td></tr>
+</table>
+
+<p style="margin-top:40px; color:#777; font-size:0.9em;">작성일: 2026-10-04</p>
+
+</body>
+</html>
